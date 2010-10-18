@@ -19,7 +19,6 @@
 		public function IntroView(sName:String, mc:MovieClip)  {
 			super(sName, mc);
 			trace("Creating new IntroView() -- " + sName);
-			//trace("test for git");
 			
 		}
 		override public function endContent() : void  {
