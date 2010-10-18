@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<labels>
+	<!-- SlidingPanelControls -->
+	<label sId="audio" text="Audio" />
+	<label sId="clips_btn" text="Clips" />
+	<label sId="calculator_btn" text="Calculator" />
+	<label sId="hexmap" text="Hex Map" />
+	<label sId="main_menu" text="Main Menu" />
+	<label sId="options" text="Options" />
+	<label sId="timers" text="Timers" />
+	
+	<label sId="next_btn" text="Next" />
+	<label sId="back_btn" text="Back" />
+	
+	<!-- GuiControls -->
+	<label sId="load" text="Load" />
+	<label sId="quit" text="Quit" />
+	<label sId="save" text="Save" />
+	<label sId="sorting_activity" text="Sorting" />
+	
+	<!-- HexMap -->
+	<label sId="player_control_txt" text="&lt;b&gt;Controls&lt;/b&gt;&lt;br&gt;Q == NW&lt;br&gt;W == N&lt;br&gt;E == NE&lt;br&gt;A == SW&lt;br&gt;S == S&lt;br&gt;D == SE" />
+	
+	
+	
+</labels>
