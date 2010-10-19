@@ -10,6 +10,7 @@ package classes.project  {
 	import classes.project.core.*;
 	import classes.project.events.*;
 	import classes.project.model.*;
+	import classes.project.model.controls.*;
 	import classes.project.model.grid.*;
 	import classes.project.model.loader.*;
 	import classes.project.model.structure.*;
@@ -66,6 +67,18 @@ package classes.project  {
 			commandMap.mapEvent(GuiControlEvent.CLIP_NEXT_BTN_PRESSED, GuiControlNextCommand, GuiControlEvent);
 			commandMap.mapEvent(GuiControlEvent.CLIP_BACK_BTN_PRESSED, GuiControlBackCommand, GuiControlEvent);
 			
+			
+			//game
+			commandMap.mapEvent(GameControlEvent.GAMEMENU_CONTROL_PRESSED, GameControlErrorCommand, GameControlEvent);
+			commandMap.mapEvent(GameControlEvent.NEW_GAME_BTN_PRESSED, NewGameCommand, GameControlEvent);
+			commandMap.mapEvent(GameControlEvent.LOAD_GAME_BTN_PRESSED, LoadGameCommand, GameControlEvent);
+			commandMap.mapEvent(GameControlEvent.SAVE_GAME_BTN_PRESSED, SaveGameCommand, GameControlEvent);
+			commandMap.mapEvent(GameControlEvent.PROFILES_BTN_PRESSED, ProfileViewCommand, GameControlEvent);
+			commandMap.mapEvent(GameControlEvent.OPTIONS_BTN_PRESSED, OptionsViewCommand, GameControlEvent);
+			commandMap.mapEvent(GameControlEvent.CREDITS_BTN_PRESSED, CreditsViewCommand, GameControlEvent);
+			commandMap.mapEvent(GameControlEvent.REPORT_BUG_BTN_PRESSED, ReportBugCommand, GameControlEvent);
+			commandMap.mapEvent(GameControlEvent.EXIT_BTN_PRESSED, ExitGameCommand, GameControlEvent);
+			
 		}
 		private function mapInjectors():void  {
 			
@@ -97,6 +110,7 @@ package classes.project  {
 			
 			// map some classes for use with our mediators, etc
 			injector.mapClass(GuiControl, GuiControl);
+			injector.mapClass(GameMenuControl, GameMenuControl);
 			injector.mapClass(HexGrid, HexGrid);
 			injector.mapClass(HexTile, HexTile);
 			injector.mapClass(Player, Player);
