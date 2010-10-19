@@ -23,4 +23,14 @@
 	
 	
 	
+	<!-- GameMenu Controls -->
+	<label sId="newgame" text="New Game" />
+	<label sId="loadgame" text="Load Game" />
+	<label sId="profiles" text="Profiles" />
+	<label sId="options" text="Options" />
+	<label sId="credits" text="Credits" />
+	<label sId="reportbug" text="Report A Bug" />
+	<label sId="exit" text="Exit" />
+	
+	
 </labels>

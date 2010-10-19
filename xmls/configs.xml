@@ -33,5 +33,20 @@
 		<config sId="sSkin" value="Tooltip_MC" />
 		<config sId="sOrient" value="right" />
 	</configGroup>
+	
+	
+	
+	<configGroup id="GameMenuControls">
+		<config sId="newgame" sEvent="" sGroups="game_menu" nOrder="0" />
+		<config sId="loadgame" sEvent="" sGroups="game_menu" nOrder="1" />
+		<config sId="profiles" sEvent="" sGroups="game_menu" nOrder="2" />
+		<config sId="options" sEvent="" sGroups="game_menu" nOrder="3" />
+		<config sId="credits" sEvent="" sGroups="game_menu" nOrder="4" />
+		<config sId="reportbug" sEvent="" sGroups="game_menu" nOrder="5" />
+		<config sId="exit" sEvent="" sGroups="game_menu" nOrder="6" />
+	</configGroup>
+	
+	
+	
 
 </configs>
