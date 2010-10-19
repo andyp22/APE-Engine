@@ -5,6 +5,7 @@
  */
 package classes.project.core  {
 	
+	import classes.project.core.ViewState;
 	import classes.project.model.structure.*;
 	
 	
@@ -25,6 +26,8 @@ package classes.project.core  {
 		public static var nSection:Number;
 		public static var nClip:Number;
 		public static var nSegment:Number;
+		
+		public static var sCurrentViewState:String = ViewState.START_UP_STATE;
 		
 		
 		/**

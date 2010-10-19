@@ -52,6 +52,7 @@ package classes.project.commands  {
 			 */
 			[Inject] Server.queueSWF("swfs/assets");
 			[Inject] Server.queueSWF("swfs/views/introAnimation");
+			[Inject] Server.queueSWF("swfs/views/menuScreens");
 			[Inject] Server.loadSWFQueue();
 			/**
 			 *	Load any XML files needed here.

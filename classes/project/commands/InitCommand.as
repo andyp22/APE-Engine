@@ -6,6 +6,7 @@
  package classes.project.commands  {
 	
 	import classes.project.core.Configs;
+	import classes.project.core.GameController;
 	import classes.project.core.Labels;
 	import classes.project.core.LibFactory;
 	import classes.project.core.MapManager;
@@ -67,7 +68,7 @@
 			[Inject] ViewManager.setEventDispatcher(eventDispatcher);
 			[Inject] ViewManager.contextView = contextView;
 			[Inject] ViewManager.init();
-			[Inject] ViewManager.initViews();
+			//[Inject] ViewManager.initViews();
 			/*
 			 *	Panels
 			 *
@@ -97,6 +98,8 @@
 			var tooltipView:Sprite = Sprite(contextView.getChildByName("tooltips"));
 			[Inject] Tooltips.getInstance();
 			tooltipView.addChild(Tooltips.getHolder());
+			
+			[Inject] GameController.onInitComplete();
 		}
 	}
 }

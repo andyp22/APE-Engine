@@ -113,6 +113,7 @@ package classes.project  {
 			 */
 			mediatorMap.mapView(BaseView, BaseMediator);
 			mediatorMap.mapView(ExampleView, ExampleMediator);
+			mediatorMap.mapView(GameMenuView, GameMenuMediator);
 			mediatorMap.mapView(IntroView, IntroMediator);
 			/*
 			 *	Panels

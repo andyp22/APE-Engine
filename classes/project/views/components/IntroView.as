@@ -5,6 +5,7 @@
  */
  package classes.project.views.components  {
 	
+	import classes.project.core.GameController;
 	import classes.project.core.Server;
 	import classes.project.views.components.BaseView;
 	
@@ -51,9 +52,9 @@
 					this._display.gotoAndPlay("loadingCredits");
 					break;
 				case "loadingCredits":
+					this.stopShow();
 					//handle flow to next part of the game
-					
-					this.removeView();
+					[Inject] GameController.onIntroComplete();
 					break;
 				default:
 					this._display.gotoAndPlay("openingCredits");
@@ -67,7 +68,7 @@
 			this._display.mcOpening.play();
 			show();
 		}
-		private function removeView() : void  {
+		private function stopShow() : void  {
 			stage.removeEventListener(KeyboardEvent.KEY_UP, reportKeyUp);
 			
 		}

@@ -28,6 +28,7 @@
 		private static var _currentView:IView = null;
 		private static var _views:Array;
 		
+		
 		[Inject] public static var contextView:DisplayObjectContainer;
 		
 		
@@ -77,8 +78,8 @@
 		 *
 		 *
 		 */
-		public static function onFileLoaded(sName:String) : void  {
-			trace("ViewManager onFileLoaded(" + sName +")");
+		public static function onFileLoaded(sName:String, mcDisplay:MovieClip) : void  {
+			//trace("ViewManager onFileLoaded(" + sName +")");
 			
 			
 			
@@ -96,9 +97,10 @@
 		}
 		public static function onViewClosed(e:GameViewEvent) : void  {
 			trace("onViewClosed() -- "+ e.view.id);
+			
 		}
 		public static function onEndContent() : void  {
-			trace("onEndContent()");
+			//trace("onEndContent()");
 			_currentView.endContent();
 		}
 		/*
@@ -106,31 +108,38 @@
 		 *
 		 *
 		 */
-		public static function initViews() : void  {
-			[Inject] var viewHolder:Sprite = Sprite(contextView.getChildByName("gameViews"));
-			
-			/*
-			[Inject] var baseView:BaseView = new BaseView("base_view", LibFactory.createMovieClip("Intro_Animation_MC"));
-			viewHolder.addChild(baseView);
-			registerView(baseView);
-			*/
-			/*
-			[Inject] var exView:ExampleView = new ExampleView("example_view", LibFactory.createMovieClip("Intro_Animation_MC"));
-			viewHolder.addChild(exView);
-			registerView(exView);
-			*/
-			[Inject] var introView:IntroView = new IntroView("intro_view", MovieClip(Server.getAsset("swfs_views_introAnimation")));
-			viewHolder.addChild(introView);
-			registerView(introView);
-			
-			_currentView = introView;
-		}
-		
 		public static function registerView(view:IView):void  {
 			trace("Registering view -- " + view.id);
+			[Inject] var viewHolder:Sprite = Sprite(contextView.getChildByName("gameViews"));
+			viewHolder.addChild(Sprite(view));
+			view.hide();
 			_views.push(view);
 		}
 		
+		public static function hasView(sID:String):Boolean  {
+			for(var i = 0; i < _views.length; i++)  {
+				if(_views[i].id == sID)  {
+					return true;
+				}
+			}
+			return false;
+		}
+		public static function getView(sID:String):IView  {
+			for(var i = 0; i < _views.length; i++)  {
+				if(_views[i].id == sID)  {
+					return _views[i];
+				}
+			}
+			return null;
+		}
+		public static function showView(sID:String):void  {
+			for(var i = 0; i < _views.length; i++)  {
+				if(_views[i].id == sID)  {
+					_currentView = _views[i];
+				}
+			}
+			_currentView.show();
+		}
 		
 		
 		

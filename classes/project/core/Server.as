@@ -5,6 +5,7 @@
  */
  package classes.project.core  {
 	
+	import classes.project.core.GameController;
 	import classes.project.model.ControlGroup;
 	import classes.project.model.GuiControl;
 	
@@ -170,7 +171,7 @@
 			}
 			return sName;
 		}
-		private static function getFileLink(sId:String):String  {
+		public static function getFileLink(sId:String):String  {
 			var sFile:String = sId;
 			var nIndex:Number = sFile.indexOf("_");
 			while(nIndex >= 0)  {
@@ -213,6 +214,9 @@
 				return;
 			}
 			// might need to do some other stuff here
+			if(bStartupComplete)  {
+				[Inject] GameController.onLoadFinished();
+			}
 		}
 		public static function onStartupComplete() : void  {
 			bStartupComplete = true;

@@ -82,7 +82,7 @@ package classes.project.model.loader  {
 					var view:MovieClip = e.target.content;
 					[Inject] Server.storeAssets(view, Server.getClipLink(this._sUrl));
 					[Inject] Server.onFileLoaded(sName);
-					[Inject] ViewManager.onFileLoaded(sName);
+					[Inject] ViewManager.onFileLoaded(sName, view);
 					break;
 				
 				
