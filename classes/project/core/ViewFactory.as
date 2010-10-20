@@ -31,7 +31,7 @@
 			var view:IView = null;
 			switch(sView)  {
 				case "exit_game_view":
-					trace("Need to implement functionality for this command!!!!!");
+					[Inject] view = new ExitGameView(sView, "swfs_views_introAnimation");
 					break;
 				case "game_credits_view":
 					[Inject] view = new GameCreditsView(sView, "swfs_views_introAnimation");
@@ -46,7 +46,7 @@
 					[Inject] view = new LoadGameView(sView, "swfs_views_menuScreens");
 					break;
 				case "new_game_view":
-					trace("Need to implement functionality for this command!!!!!");
+					[Inject] view = new NewGameView(sView, "swfs_views_menuScreens");
 					break;
 				case "options_menu_view":
 					[Inject] view = new OptionsMenuView(sView, "swfs_views_menuScreens");

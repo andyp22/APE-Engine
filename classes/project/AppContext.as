@@ -112,11 +112,12 @@ package classes.project  {
 			/*
 			 *	Full Views
 			 */
-			
+			mediatorMap.mapView(ExitGameView, ExitGameMediator);
 			mediatorMap.mapView(GameCreditsView, GameCreditsMediator);
 			mediatorMap.mapView(GameMenuView, GameMenuMediator);
 			mediatorMap.mapView(IntroView, IntroMediator);
 			mediatorMap.mapView(LoadGameView, LoadGameMediator);
+			mediatorMap.mapView(NewGameView, NewGameMediator);
 			mediatorMap.mapView(OptionsMenuView, OptionsMenuMediator);
 			mediatorMap.mapView(ProfileMenuView, ProfileMenuMediator);
 			mediatorMap.mapView(ReportBugView, ReportBugMediator);
