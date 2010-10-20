@@ -8,6 +8,8 @@
 	import classes.project.core.Preloader;
 	import classes.project.core.Server;
 	import classes.project.core.ViewManager;
+	import classes.project.core.ViewState;
+	import classes.project.events.GameControlEvent;
 	import classes.project.views.components.*;
 	
 	import flash.display.MovieClip;
@@ -83,9 +85,7 @@
 		public static function onLoadingComplete():void  {
 			if(!_bLoading && _introComplete)  {
 				trace("GameController onLoadingComplete()");
-				State.sCurrentViewState = ViewState.GAME_MENU_STATE;
-				initViews();
-				displayView("game_menu_view");
+				[Inject] Server.dispatch(new GameControlEvent(GameControlEvent.GAME_MENU_BTN_PRESSED));
 			}
 		}
 		public static function onLoadFinished():void  {
@@ -104,19 +104,15 @@
 		 *
 		 */
 		public static function displayView(sView:String):void  {
+			[Inject] if(!ViewManager.hasView(sView))  {
+				[Inject] ViewManager.addView(sView);
+			}
 			[Inject] ViewManager.showView(sView);
 		}
-		private static function initViews():void  {
-			[Inject] var gameMenuView:GameMenuView = new GameMenuView("game_menu_view", MovieClip(Server.getAsset("swfs_views_menuScreens")));
-			[Inject] ViewManager.registerView(gameMenuView);
-			
-			
-			
-		}
 		public static function showStartup():void  {
-			[Inject] var introView:IntroView = new IntroView("intro_view", MovieClip(Server.getAsset("swfs_views_introAnimation")));
-			[Inject] ViewManager.registerView(introView);
-			introView.startShow();
+			var sView:String = "intro_view";
+			[Inject] ViewManager.addView(sView);
+			[Inject] IntroView(ViewManager.getView(sView)).startShow();
 			queueAssets();
 		}
 		private static function queueAssets():void  {

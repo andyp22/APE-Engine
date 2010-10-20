@@ -6,8 +6,9 @@
  package classes.project.core  {
 	
 	import classes.project.core.LibFactory;
+	import classes.project.core.ViewFactory;
 	import classes.project.events.GameViewEvent;
-	import classes.project.views.components.*;
+	import classes.project.views.components.IView;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -47,6 +48,8 @@
 		public static function init():void  {
 			if(bInit)  {
 				trace("ViewManager initializing...");
+				
+				[Inject] ViewFactory.getInstance();
 				
 				_views = new Array();
 				
@@ -108,11 +111,16 @@
 		 *
 		 *
 		 */
+		public static function addView(sView:String):void  {
+			[Inject] var viewHolder:Sprite = Sprite(contextView.getChildByName("gameViews"));
+			[Inject] var view:IView = ViewFactory.makeView(sView);
+			view.hide();
+			viewHolder.addChild(Sprite(view));
+			registerView(view);
+			
+		}
 		public static function registerView(view:IView):void  {
 			trace("Registering view -- " + view.id);
-			[Inject] var viewHolder:Sprite = Sprite(contextView.getChildByName("gameViews"));
-			viewHolder.addChild(Sprite(view));
-			view.hide();
 			_views.push(view);
 		}
 		

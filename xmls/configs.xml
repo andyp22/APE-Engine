@@ -1,41 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configs>
-	<configGroup id="GuiControls">
-		<config sId="save" sEvent="SAVE_CONTROL_PRESSED" sGroups="main_menu" nOrder="0" />
-		<config sId="load" sGroups="main_menu" nOrder="1" bEnabled="false" />
-		<config sId="sorting_activity" sEvent="SORTING_BTN_PRESSED" sGroups="main_menu" nOrder="2" />
-		<config sId="quit" sGroups="main_menu" nOrder="3" />
-	</configGroup>
-	<configGroup id="SlidingPanelControls">
-		<config sId="main_menu" sEvent="MENU_BTN_PRESSED" sGroups="ui" nOrder="0" />
-		<config sId="calculator_btn" sEvent="CALCULATOR_BTN_PRESSED" sGroups="ui" nOrder="1" />
-		<config sId="audio" sEvent="SAVE_CONTROL_PRESSED" sGroups="ui" nOrder="2" bEnabled="false" />
-		<config sId="options" sGroups="ui" nOrder="3" bEnabled="false" />
-		<config sId="hexmap" sEvent="HEXMAP_BTN_PRESSED" sGroups="ui" nOrder="4" />
-		<config sId="timers" sEvent="TIMER_BTN_PRESSED" sGroups="ui" nOrder="5" />
-		<config sId="clips_btn" sEvent="CLIP_PANEL_BTN_PRESSED" sGroups="ui" nOrder="6" />
-		<config sId="next_btn" sEvent="CLIP_NEXT_BTN_PRESSED" sGroups="ui" nOrder="7" />
-		<config sId="back_btn" sEvent="CLIP_BACK_BTN_PRESSED" sGroups="ui" nOrder="8" />
-	</configGroup>
-	<configGroup id="PanelList">
-		<config sId="main_menu_panel" type="MainMenu" xPos="150" yPos="50" bRegister="true" />
-		<config sId="calculator_panel" type="Calculator" xPos="25" yPos="50" bRegister="true" />
-		<config sId="hexmap_panel" type="HexMap" xPos="25" yPos="25" bRegister="true" />
-		<config sId="sliding_panel" type="SlidingPanel" />
-		<config sId="timer_panel" type="Timers" xPos="25" yPos="25" bRegister="true" />
-		<config sId="clip_panel" type="ClipsPanel" xPos="25" yPos="25" bRegister="true" />
-	</configGroup>
 	
-	
-	
-	<!-- Profiles -->
-	<configGroup id="Tooltips" type="profile">
-		<config sId="sSkin" value="Tooltip_MC" />
-		<config sId="sOrient" value="right" />
-	</configGroup>
-	
-	
-	
+	<!-- Controls -->
 	<configGroup id="GameMenuControls">
 		<config sId="newgame" sEvent="NEW_GAME_BTN_PRESSED" sGroups="game_menu" nOrder="0" />
 		<config sId="loadgame" sEvent="LOAD_GAME_BTN_PRESSED" sGroups="game_menu" nOrder="1" />
@@ -46,7 +12,20 @@
 		<config sId="exit" sEvent="EXIT_BTN_PRESSED" sGroups="game_menu" nOrder="6" />
 	</configGroup>
 	
+	<configGroup id="PanelList">
+		<!--config sId="main_menu_panel" type="MainMenu" xPos="150" yPos="50" bRegister="true" />
+		<config sId="calculator_panel" type="Calculator" xPos="25" yPos="50" bRegister="true" />
+		<config sId="hexmap_panel" type="HexMap" xPos="25" yPos="25" bRegister="true" />
+		<config sId="sliding_panel" type="SlidingPanel" />
+		<config sId="timer_panel" type="Timers" xPos="25" yPos="25" bRegister="true" />
+		<config sId="clip_panel" type="ClipsPanel" xPos="25" yPos="25" bRegister="true" /-->
+	</configGroup>
 	
 	
+	<!-- Profiles -->
+	<configGroup id="Tooltips" type="profile">
+		<config sId="sSkin" value="Tooltip_MC" />
+		<config sId="sOrient" value="right" />
+	</configGroup>
 
 </configs>

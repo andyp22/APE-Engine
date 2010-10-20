@@ -1,5 +1,5 @@
 ﻿/**
- * classes.project.commands.ExitGameCommand
+ * classes.project.commands.GameMenuCommand
  * @version 1.0.0
  * @author andrew page
  */
@@ -11,12 +11,12 @@ package classes.project.commands  {
 	
 	import org.robotlegs.mvcs.Command;
 	
-	public class ExitGameCommand extends Command  {
+	public class GameMenuCommand extends Command  {
 		
 		override public function execute():void  {
-			trace("ExitGameCommand executing...");
-			[Inject] State.sCurrentViewState = ViewState.EXIT_GAME_STATE;
-			[Inject] GameController.displayView("exit_game_view");
+			trace("GameMenuCommand executing...");
+			[Inject] State.sCurrentViewState = ViewState.GAME_MENU_STATE;
+			[Inject] GameController.displayView("game_menu_view");
 		}
 	}
 }

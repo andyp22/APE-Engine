@@ -5,7 +5,6 @@
  */
 package classes.project.model.loader  {
 	
-	import classes.project.core.Navigator;
 	import classes.project.core.Server;
 	import classes.project.core.ViewManager;
 	import classes.project.events.LoaderEvent;
@@ -65,6 +64,7 @@ package classes.project.model.loader  {
 					//TODO: store the audio for use
 					[Inject] Server.onFileLoaded(sName);
 					break;
+				/*
 				case "clips":
 					sName = getFileName(this._sUrl, true);
 					var clip:MovieClip = e.target.content;
@@ -72,6 +72,7 @@ package classes.project.model.loader  {
 					[Inject] Server.onFileLoaded(sName);
 					[Inject] Navigator.onClipLoaded();
 					break;
+				*/
 				case "assets":
 					sName = getFileName(this._sUrl);
 					[Inject] Server.storeAssets(this._loader, Server.getClipLink(this._sUrl));

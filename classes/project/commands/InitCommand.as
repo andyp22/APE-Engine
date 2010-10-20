@@ -10,13 +10,10 @@
 	import classes.project.core.Labels;
 	import classes.project.core.LibFactory;
 	import classes.project.core.MapManager;
-	import classes.project.core.Navigator;
 	import classes.project.core.PanelManager;
 	import classes.project.core.Server;
-	import classes.project.core.Structure;
 	import classes.project.core.ViewManager;
 	import classes.project.events.GuiControlEvent;
-	import classes.project.interactivities.Interactivity;
 	import classes.project.model.GuiControl;
 	import classes.project.model.Tooltips;
 	import classes.project.views.components.*;
@@ -30,18 +27,7 @@
 		override public function execute():void  {
 			trace("Executing InitCommand...");
 			[Inject] Server.onStartupComplete();
-			/*
-			 *	Structure
-			 *
-			 */
-			[Inject] Structure.getInstance();
-			[Inject] Structure.init(Server.xmlData["course"]);
-			/*
-			 *	Navigation
-			 *
-			 */
-			[Inject] Navigator.getInstance();
-			[Inject] Navigator.init();
+			
 			/*
 			 *	Configs
 			 *
@@ -68,7 +54,6 @@
 			[Inject] ViewManager.setEventDispatcher(eventDispatcher);
 			[Inject] ViewManager.contextView = contextView;
 			[Inject] ViewManager.init();
-			//[Inject] ViewManager.initViews();
 			/*
 			 *	Panels
 			 *
@@ -77,18 +62,6 @@
 			[Inject] PanelManager.setEventDispatcher(eventDispatcher);
 			[Inject] PanelManager.contextView = contextView;
 			[Inject] PanelManager.init();
-			/*
-			 *	Interactivities
-			 *
-			 */
-			[Inject] Interactivity.getInstance();
-			[Inject] Interactivity.setEventDispatcher(eventDispatcher);
-			[Inject] Interactivity.contextView = contextView;
-			[Inject] Interactivity.init();
-			//sorting			
-			[Inject] Interactivity.createActivity("SORTING");
-			
-			
 			
 			
 			/*

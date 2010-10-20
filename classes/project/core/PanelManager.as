@@ -102,7 +102,7 @@
 			[Inject] var configs:Array = Configs.getConfigGroup("PanelList");
 			[Inject] var panelView:Sprite = Sprite(contextView.getChildByName("panels"));
 			
-			for(var elm in configs)  {
+			/*for(var elm in configs)  {
 				var aConfigs:Array = configs[elm];
 				var nX:Number = (aConfigs["xPos"] != null) ? Number(aConfigs["xPos"]): 0;
 				var nY:Number = (aConfigs["yPos"] != null) ? Number(aConfigs["yPos"]): 0;
@@ -113,7 +113,7 @@
 				if(aConfigs["bRegister"] != null && Boolean(aConfigs["bRegister"]))  {
 					registerPanel(panel);
 				}
-			}
+			}*/
 			
 		}
 		public static function registerPanel(panel:IPanel):void  {

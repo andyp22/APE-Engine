@@ -59,7 +59,6 @@ package classes.project.commands  {
 			 *
 			 */
 			[Inject] Server.queueXML("configs");
-			[Inject] Server.queueXML("course");
 			[Inject] Server.queueXML("labels");
 			[Inject] Server.queueXML("mapGrids");
 			[Inject] Server.loadXMLQueue();

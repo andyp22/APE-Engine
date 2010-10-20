@@ -17,21 +17,23 @@
 	
 	public class GameMenuView extends BaseView  {
 		
+		private var _assetId:String;
 		private var mcMenuHolder:MovieClip;
 		
 		/**
 		 * Constructor
 		 */
-		public function GameMenuView(sName:String, mc:MovieClip)  {
-			super(sName, mc);
+		public function GameMenuView(sName:String, sAsset:String)  {
+			super(sName, MovieClip(Server.getAsset(sAsset)));
 			trace("Creating new GameMenuView() -- " + sName);
 			
-			this.initMenu();
+			this._assetId = sAsset;
+			this.show();
 		}
 		
 		private function initMenu():void  {
-			mcMenuHolder = this._display.mcGameMenu.mcMenuHolder;
-			
+			mcMenuHolder = new MovieClip();
+			this.addChild(mcMenuHolder);
 			// add some controls
 			var aOrder:Array = new Array();
 			[Inject] var configs:Array = Configs.getConfigGroup("GameMenuControls");
@@ -67,11 +69,20 @@
 				mcMenuHolder.addChild(aOrder[i]);
 				
 			}
-			mcMenuHolder.x = this._display.mcGameMenu.mcBg.width/2 - aOrder[0].width/2;
+			mcMenuHolder.x = 400 - aOrder[0].width/2;
+			mcMenuHolder.y = 170;
 			
 			
 		}
 		
+		override public function show():void  {
+			this._display = MovieClip(Server.getAsset(this._assetId));
+			this.addChild(this._display);
+			this._display.gotoAndPlay("gameMenu");
+			this.initMenu();
+			super.show();
+			
+		}
 		
 	}
 }
