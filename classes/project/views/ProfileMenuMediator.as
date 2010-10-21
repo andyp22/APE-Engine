@@ -4,6 +4,8 @@
  * @author andrew page
  */
 package classes.project.views {
+	
+	import classes.project.events.TabControlEvent;
 	import classes.project.views.components.ProfileMenuView;
 	
 	import org.robotlegs.mvcs.Mediator;
@@ -21,6 +23,14 @@ package classes.project.views {
 		override public function onRegister() : void  {
 			trace("ProfileMenuMediator registered.");
 			
+			eventMap.mapListener(eventDispatcher, TabControlEvent.TAB_CONTROL_PRESSED, toggleTab);
+		}
+		
+		private function toggleTab(e:TabControlEvent):void  {
+			trace("toggleTab()"+ e._tab.getName());
+			view.updateTabs(e._tab.getName());
+			view.hideOverlays();
+			view.showOverlay(e._tab.getName());
 			
 		}
 		

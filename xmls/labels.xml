@@ -16,6 +16,12 @@
 	<label sId="profiles" text="Profiles" />
 	<label sId="reportbug" text="Report A Bug" />
 	
+	<!-- Profile View -->
+	<label sId="profile_view_title" text="Profiles" />
+	<label sId="players_tab" text="Players" />
+	<label sId="characters_tab" text="Characters" />
+	<label sId="history_tab" text="History" />
+	
 	
 	
 </labels>

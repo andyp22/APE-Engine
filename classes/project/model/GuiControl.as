@@ -96,10 +96,8 @@ package classes.project.model {
 		
 		public function setText(sText:String):void  {
 			var nPadding:int = this.mcText.x - this.mcBg.x;
-			
 			this.sText = sText;
 			this.mcText.tf.text = this.sText;
-			
 			if(this.bAutosize)  {
 				//resize the button based on text length
 				this.mcText.tf.autoSize = TextFieldAutoSize.CENTER;

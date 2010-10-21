@@ -22,6 +22,7 @@ package classes.project.model.controls {
 			super(sName, mc, bAutosize);
 			
 			this._releaseEvent = GameControlEvent.GAMEMENU_CONTROL_PRESSED;
+			this.disableTooltip();
 		}
 		/**
 		 *	Overrides
