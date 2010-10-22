@@ -6,7 +6,6 @@
 package classes.project.model.controls {
 	
 	import classes.project.core.Server;
-	
 	import classes.project.model.GuiControl;
 	import classes.project.events.TabControlEvent;
 	
@@ -39,7 +38,9 @@ package classes.project.model.controls {
 			}
 			this.mcBg.gotoAndPlay("_overNoOut");
 		}
-		
+		/**
+		 *	Methods
+		 */
 		public function select():void  {
 			this.mcSelected.visible = true;
 			this._selected = true;

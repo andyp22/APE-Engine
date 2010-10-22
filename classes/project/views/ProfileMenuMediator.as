@@ -28,9 +28,10 @@ package classes.project.views {
 		
 		private function toggleTab(e:TabControlEvent):void  {
 			trace("toggleTab()"+ e._tab.getName());
-			view.updateTabs(e._tab.getName());
-			view.hideOverlays();
-			view.showOverlay(e._tab.getName());
+			view.update(e._tab.getName());
+			//view.updateTabs(e._tab.getName());
+			//view.hideOverlays();
+			//view.showOverlay(e._tab.getName());
 			
 		}
 		

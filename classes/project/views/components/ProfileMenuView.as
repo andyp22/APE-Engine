@@ -11,6 +11,7 @@
 	import classes.project.core.Server;
 	import classes.project.events.GameControlEvent;
 	import classes.project.model.GuiControl;
+	import classes.project.model.TabContainer;
 	import classes.project.model.controls.GameMenuControl;
 	import classes.project.model.controls.TabControl;
 	import classes.project.views.components.BaseView;
@@ -25,6 +26,8 @@
 		private var _title:MovieClip;
 		private var _tabs:Array = new Array();
 		private var _overlays:Array = new Array();
+		
+		private var _tabPanel:TabContainer;
 		
 		/**
 		 * Constructor
@@ -44,61 +47,25 @@
 			this.addChild(this._clip);
 			
 			this.setTitle();
-			this.addTabs();
-			this.initOverlays();
-			
+			this.initTab();
 			
 		}
 		private function setTitle():void  {
 			this._title.tf.text = Labels.getLabel("profile_view_title");
 		}
-		private function addTabs():void  {
-			var aTabs:Array = new Array();
-			aTabs.push("players_tab");
-			aTabs.push("characters_tab");
-			aTabs.push("history_tab");
-			
-			var nX:Number = 0;
-			
-			for(var i = 0; i < aTabs.length; i++)  {
-				var mcTab:TabControl = new TabControl(aTabs[i], LibFactory.createMovieClip("TabControl_BTN"));
-				mcTab.x = nX;
-				nX += mcTab.width;
-				this._clip.mcTabs.addChild(mcTab);
-				this._tabs.push(mcTab);
-				if(aTabs[i] == "players_tab")  {
-					mcTab.select();
-				}
-				
-			}
-			//this._tabs[0].select();
+		private function initTab():void  {
+			this._tabPanel = new TabContainer("profile_tabs", LibFactory.createMovieClip("TabPanel_MC"));
+			this._tabPanel.x = 20;
+			this._tabPanel.y = 70;
+			this._clip.addChild(this._tabPanel);
 		}
-		private function initOverlays():void  {
-			
-			var nX:Number = this._clip.mcTabs.mcBg.x + 10;
-			var nY:Number = this._clip.mcTabs.mcBg.y + 10;
-			
-			var oPlayers:MovieClip = LibFactory.createMovieClip("dummy1");
-			this._overlays["players_tab"] = oPlayers;
-			this._clip.mcTabs.addChild(oPlayers);
-			
-			
-			var oCharacters:MovieClip = LibFactory.createMovieClip("dummy2");
-			this._overlays["characters_tab"] = oCharacters;
-			this._clip.mcTabs.addChild(oCharacters);
-			oCharacters.visible = false;
-			
-			
-			var oHistory:MovieClip = LibFactory.createMovieClip("dummy3");
-			this._overlays["history_tab"] = oHistory;
-			this._clip.mcTabs.addChild(oHistory);
-			oHistory.visible = false;
-			
-			
-			oPlayers.x = oCharacters.x = oHistory.x = nX;
-			oPlayers.y = oCharacters.y = oHistory.y = nY;
-			
+		public function update(sName:String):void  {
+			this._tabPanel.updateTabs(sName);
+			this._tabPanel.hideOverlays();
+			this._tabPanel.showOverlay(sName);
 		}
+		
+		
 		
 		private function addGameMenuBtn():void  {
 			[Inject] var control:GameMenuControl = new GameMenuControl("gameMenu", LibFactory.createMovieClip("GameMenuButton"));
@@ -117,22 +84,6 @@
 			this.addGameMenuBtn();
 			super.show();
 			
-		}
-		public function showOverlay(sName:String):void  {
-			this._overlays[sName].visible = true;
-		}
-		public function hideOverlays():void  {
-			for(var elm in this._overlays)  {
-				this._overlays[elm].visible = false;
-			}
-		}
-		public function updateTabs(sName:String):void  {
-			for(var i = 0; i < this._tabs.length; i++)  {
-				this._tabs[i].deselect();
-				if(this._tabs[i].getName() == sName)  {
-					this._tabs[i].select();
-				}
-			}
 		}
 		
 		
