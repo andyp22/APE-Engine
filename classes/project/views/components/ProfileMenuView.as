@@ -75,8 +75,8 @@
 		}
 		private function initOverlays():void  {
 			
-			var nX:Number = this._clip.mcTabs.mcBg.x + 15;
-			var nY:Number = this._clip.mcTabs.mcBg.y + 15;
+			var nX:Number = this._clip.mcTabs.mcBg.x + 10;
+			var nY:Number = this._clip.mcTabs.mcBg.y + 10;
 			
 			var oPlayers:MovieClip = LibFactory.createMovieClip("dummy1");
 			this._overlays["players_tab"] = oPlayers;

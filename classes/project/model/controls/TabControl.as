@@ -26,7 +26,7 @@ package classes.project.model.controls {
 			
 			this._releaseEvent = TabControlEvent.TAB_CONTROL_PRESSED;
 			this.disableTooltip();
-			this.mcSelected = this.mcButton.mcSelected;
+			this.mcSelected = this.mcButton.mcBg.mcSelected;
 			this.deselect();
 		}
 		/**
@@ -41,11 +41,11 @@ package classes.project.model.controls {
 		}
 		
 		public function select():void  {
-			this.mcSelected.visible = false;
+			this.mcSelected.visible = true;
 			this._selected = true;
 		}
 		public function deselect():void  {
-			this.mcSelected.visible = true;
+			this.mcSelected.visible = false;
 			this._selected = false;
 		}
 	}
