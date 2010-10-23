@@ -5,14 +5,7 @@
  */
  package classes.project.commands  {
 	
-	import classes.project.core.Configs;
-	import classes.project.core.GameController;
-	import classes.project.core.Labels;
-	import classes.project.core.LibFactory;
-	import classes.project.core.MapManager;
-	import classes.project.core.PanelManager;
-	import classes.project.core.Server;
-	import classes.project.core.ViewManager;
+	import classes.project.core.*;
 	import classes.project.events.GuiControlEvent;
 	import classes.project.model.GuiControl;
 	import classes.project.model.Tooltips;
@@ -62,6 +55,11 @@
 			[Inject] PanelManager.setEventDispatcher(eventDispatcher);
 			[Inject] PanelManager.contextView = contextView;
 			[Inject] PanelManager.init();
+			/*
+			 *	Overlays
+			 *
+			 */
+			[Inject] OverlayFactory.getInstance();
 			
 			
 			/*

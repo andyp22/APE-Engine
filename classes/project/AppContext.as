@@ -83,6 +83,7 @@ package classes.project  {
 			injector.mapSingleton(Labels);
 			injector.mapSingleton(LibFactory);
 			injector.mapSingleton(MapManager);
+			injector.mapSingleton(OverlayFactory);
 			injector.mapSingleton(PanelManager);
 			injector.mapSingleton(Preloader);
 			injector.mapSingleton(Server);
@@ -95,6 +96,7 @@ package classes.project  {
 			injector.mapClass(ILoader, BaseLoader);
 			injector.mapClass(IPanel, ContainerPanel);
 			injector.mapClass(IProfile, BaseProfile);
+			injector.mapClass(IOverlay, BaseOverlay);
 			injector.mapClass(ITile, HexTile);
 			injector.mapClass(IView, BaseView);
 			

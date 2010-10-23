@@ -6,6 +6,7 @@
 package classes.project.model  {
 	
 	import classes.project.core.LibFactory;
+	import classes.project.core.OverlayFactory;
 	import classes.project.core.Server;
 	import classes.project.model.BaseOverlay;
 	import classes.project.model.controls.TabControl;
@@ -68,15 +69,16 @@ package classes.project.model  {
 			var nX:Number = this._tabPanel.mcBg.x + nPadding;
 			var nY:Number = this._tabPanel.mcBg.y + nPadding;
 			
+			//classes.project.model.overlays.PlayerProfileOverlay
+			
 			for(var i = 0; i < this.aTabList.length; i++)  {
-				var overlay:BaseOverlay = new BaseOverlay(this.aTabList[i], LibFactory.createMovieClip("dummy"+(i+1)));
-				
-				overlay.x = nX;
-				overlay.y = nY;
+				var overlay:IOverlay = OverlayFactory.makeOverlay(this.aTabList[i]);
+				Sprite(overlay).x = nX;
+				Sprite(overlay).y = nY;
 				overlay.hide();
 				
 				this._overlays[overlay.getName()] = overlay;
-				this._tabPanel.addChild(overlay);
+				this._tabPanel.addChild(Sprite(overlay));
 			}
 			this.showOverlay("players_tab");
 			
