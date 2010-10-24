@@ -77,6 +77,7 @@ package classes.project.model.overlays  {
 			[Inject] Server.addControl(createPlayerControl, "profile_menu_player_btns");
 			createPlayerControl.x = nX;
 			createPlayerControl.y = nY;
+			createPlayerControl.disableTooltip();
 			this._overlay.addChild(createPlayerControl);
 			
 			nY += createPlayerControl.height + nPadding;
@@ -86,6 +87,7 @@ package classes.project.model.overlays  {
 			[Inject] Server.addControl(loadPlayerControl, "profile_menu_player_btns");
 			loadPlayerControl.x = nX;
 			loadPlayerControl.y = nY;
+			loadPlayerControl.disableTooltip();
 			this._overlay.addChild(loadPlayerControl);
 			
 			nY += loadPlayerControl.height + nPadding;
@@ -95,6 +97,7 @@ package classes.project.model.overlays  {
 			[Inject] Server.addControl(deletePlayerControl, "profile_menu_player_btns");
 			deletePlayerControl.x = nX;
 			deletePlayerControl.y = nY;
+			deletePlayerControl.disableTooltip();
 			this._overlay.addChild(deletePlayerControl);
 			
 			nY += deletePlayerControl.height + nPadding;
