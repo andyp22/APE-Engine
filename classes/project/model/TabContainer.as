@@ -69,8 +69,6 @@ package classes.project.model  {
 			var nX:Number = this._tabPanel.mcBg.x + nPadding;
 			var nY:Number = this._tabPanel.mcBg.y + nPadding;
 			
-			//classes.project.model.overlays.PlayerProfileOverlay
-			
 			for(var i = 0; i < this.aTabList.length; i++)  {
 				var overlay:IOverlay = OverlayFactory.makeOverlay(this.aTabList[i]);
 				Sprite(overlay).x = nX;
@@ -82,6 +80,9 @@ package classes.project.model  {
 			}
 			this.showOverlay("players_tab");
 			
+		}
+		public function getOverlay(sName:String):IOverlay  {
+			return this._overlays[sName];
 		}
 		public function showOverlay(sName:String):void  {
 			this._overlays[sName].show();

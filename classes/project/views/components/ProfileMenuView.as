@@ -14,6 +14,7 @@
 	import classes.project.model.TabContainer;
 	import classes.project.model.controls.GameMenuControl;
 	import classes.project.model.controls.TabControl;
+	import classes.project.model.overlays.*;
 	import classes.project.views.components.BaseView;
 	
 	import flash.display.MovieClip;
@@ -64,24 +65,22 @@
 			this._tabPanel.hideOverlays();
 			this._tabPanel.showOverlay(sName);
 		}
-		
-		
-		
-		private function addGameMenuBtn():void  {
-			[Inject] var control:GameMenuControl = new GameMenuControl("gameMenu", LibFactory.createMovieClip("GameMenuButton"));
-			control.setReleaseEvent(GameControlEvent.GAME_MENU_BTN_PRESSED);
-			[Inject] Server.addControl(control, "profile_menu_btns");
-			control.x = 10;
-			control.y = 10;
-			this.addChild(control);
+		public function getPlayerProfiles():Array  {
+			//var overlay:PlayerProfileOverlay = 
+			return PlayerProfileOverlay(this._tabPanel.getOverlay("players_tab")).getPlayers();
 		}
-		
+		public function addPlayer(sName:String):void  {
+			PlayerProfileOverlay(this._tabPanel.getOverlay("players_tab")).addPlayer(sName);
+		}
+		/*
+		 *	Overrides
+		 *
+		 */
 		override public function show():void  {
 			this._display = MovieClip(Server.getAsset(this._assetId));
 			this.addChild(this._display);
 			this._display.gotoAndPlay("profilesMenu");
 			this.init();
-			this.addGameMenuBtn();
 			super.show();
 			
 		}

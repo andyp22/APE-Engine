@@ -14,7 +14,7 @@ package classes.project.model  {
 	
 	public class BaseOverlay extends Sprite implements IOverlay  {
 		private var _sName:String;
-		private var _overlay:MovieClip;
+		protected var _overlay:MovieClip;
 		
 		
 		/**

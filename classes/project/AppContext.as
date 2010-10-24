@@ -13,6 +13,7 @@ package classes.project  {
 	import classes.project.model.controls.*;
 	import classes.project.model.grid.*;
 	import classes.project.model.loader.*;
+	import classes.project.model.popups.*;
 	import classes.project.views.*;
 	import classes.project.views.components.*;
 	
@@ -95,6 +96,7 @@ package classes.project  {
 			// map some classes to their respective interface
 			injector.mapClass(ILoader, BaseLoader);
 			injector.mapClass(IPanel, ContainerPanel);
+			injector.mapClass(IPopup, BasePopup);
 			injector.mapClass(IProfile, BaseProfile);
 			injector.mapClass(IOverlay, BaseOverlay);
 			injector.mapClass(ITile, HexTile);

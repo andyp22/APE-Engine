@@ -21,7 +21,18 @@
 	<label sId="players_tab" text="Players" />
 	<label sId="characters_tab" text="Characters" />
 	<label sId="history_tab" text="History" />
+	<label sId="createPlayerBtn" text="Create Player" />
+	<label sId="loadPlayerBtn" text="Load Player" />
+	<label sId="deletePlayerBtn" text="Delete Player" />
+	<label sId="createPlayerMaximumTxt" text="You already have the maximum number of players. Please delete one before creating a new player." />
+	<label sId="createPlayerNameTxt" text="Please enter a name for the new profile:" />
 	
+	
+	
+	<!-- Popups -->
+	<label sId="popup_add" text="ADD" />
+	<label sId="popup_cancel" text="CANCEL" />
+	<label sId="popup_close" text="CLOSE" />
 	
 	
 </labels>
