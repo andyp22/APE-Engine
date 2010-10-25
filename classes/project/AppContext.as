@@ -90,6 +90,7 @@ package classes.project  {
 			injector.mapSingleton(Server);
 			injector.mapSingleton(State);
 			injector.mapSingleton(Tooltips);
+			injector.mapSingleton(UserData);
 			injector.mapSingleton(ViewManager);
 			injector.mapSingleton(ViewFactory);
 			

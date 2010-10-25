@@ -61,6 +61,7 @@ package classes.project.commands  {
 			[Inject] Server.queueXML("configs");
 			[Inject] Server.queueXML("labels");
 			[Inject] Server.queueXML("mapGrids");
+			[Inject] Server.queueXML("userData");
 			[Inject] Server.loadXMLQueue();
 			/**
 			 *	Run the Preloader

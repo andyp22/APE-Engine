@@ -26,13 +26,16 @@
 	<label sId="deletePlayerBtn" text="Delete Player" />
 	<label sId="createPlayerMaximumTxt" text="You already have the maximum number of players. Please delete one before creating a new player." />
 	<label sId="createPlayerNameTxt" text="Please enter a name for the new profile:" />
-	
+	<label sId="deletePlayerPopupTxt" text="Are you sure you want to delete this profile? You will lose all data associated with it." />
+	<label sId="noPlayerSelectedPopupTxt" text="You have not selected a player. Please select a player and try again." />
 	
 	
 	<!-- Popups -->
 	<label sId="popup_add" text="ADD" />
 	<label sId="popup_cancel" text="CANCEL" />
 	<label sId="popup_close" text="CLOSE" />
+	<label sId="popup_yes" text="YES" />
+	<label sId="popup_no" text="NO" />
 	
 	
 </labels>

@@ -31,6 +31,12 @@ package classes.project.model.overlays  {
 			trace("Creating new PlayerProfileOverlay -- " + this + " : " + sName);
 			
 			this.init();
+			
+			//this.addPlayer("Andrew_old");
+			//this.addPlayer("Andrew_new");
+			//this.addPlayer("Andrew_current");
+			//this.addPlayer("Cecil");
+			//this.addPlayer("BuckaMuck");
 		}
 		
 		private function init():void  {
@@ -59,13 +65,6 @@ package classes.project.model.overlays  {
 				this._players.push(mcPlayer);
 				i++;
 			}
-			
-			
-			this.mcSelector.mcText0.tf.text = "Andrew_old";
-			this.mcSelector.mcText1.tf.text = "Andrew_new";
-			this.mcSelector.mcText2.tf.text = "Andrew_current";
-			this.mcSelector.mcText3.tf.text = "Cecil";
-			//this.mcSelector.mcText4.tf.text = "BuckaMuck";
 		}
 		private function initOverlayControls():void  {
 			var nPadding:Number = 20;
@@ -146,6 +145,50 @@ package classes.project.model.overlays  {
 				}
 			}
 			this._players[nIndex].tf.text = sName;
+		}
+		public function isPlayerSelected():Boolean  {
+			for(var i = 0; i < this._players.length; i++)  {
+				if(this._players[i].mcSelected.visible)  {
+					return true;
+				}
+			}
+			return false;
+		}
+		public function getSelectedPlayer():String  {
+			for(var i = 0; i < this._players.length; i++)  {
+				if(this._players[i].mcSelected.visible)  {
+					return this._players[i].tf.text;
+				}
+			}
+			return null;
+		}
+		public function deletePlayer(sPlayer:String):void  {
+			var newList:Array = new Array();
+			for(var i = 0; i < this._players.length; i++)  {
+				if(this._players[i].tf.text == sPlayer)  {
+					//do some stuff to delete all the player info
+					
+					
+					
+					
+				} else  {
+					newList.push(this._players[i].tf.text);
+				}
+			}
+			this._players = new Array();
+			this.initPlayerSelectors();
+			
+			for(var j = 0; j < newList.length; j++)  {
+				this.addPlayer(newList[j]);
+			}
+			
+		}
+		public function setProfileData(aData:Array):void  {
+			for(var i = 0; i < aData.length; i++)  {
+				this.addPlayer(aData[i]);
+			}
+			
+			
 		}
 		
 		

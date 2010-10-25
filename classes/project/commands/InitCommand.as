@@ -60,8 +60,6 @@
 			 *
 			 */
 			[Inject] OverlayFactory.getInstance();
-			
-			
 			/*
 			 *	Tooltips
 			 *
@@ -69,7 +67,16 @@
 			var tooltipView:Sprite = Sprite(contextView.getChildByName("tooltips"));
 			[Inject] Tooltips.getInstance();
 			tooltipView.addChild(Tooltips.getHolder());
-			
+			/*
+			 *	UserData
+			 *
+			 */
+			[Inject] UserData.getInstance();
+			[Inject] UserData.init(Server.xmlData["userData"]);
+			/*
+			 *	Initialization Complete
+			 *
+			 */
 			[Inject] GameController.onInitComplete();
 		}
 	}

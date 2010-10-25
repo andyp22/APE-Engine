@@ -39,7 +39,9 @@ package classes.project.views {
 			eventMap.mapListener(eventDispatcher, GuiControlEvent.LOAD_PLAYER_BTN_PRESSED, onLoadPlayer);
 			eventMap.mapListener(eventDispatcher, InputPopupEvent.INPUT_POPUP_CLOSED, onInputPopupClosed);
 			eventMap.mapListener(eventDispatcher, PopupEvent.POPUP_CLOSED, onPopupClosed);
+			eventMap.mapListener(eventDispatcher, PopupEvent.TWO_BUTTON_POPUP_CONFIRMED, deletePlayer);
 			eventMap.mapListener(eventDispatcher, TabControlEvent.TAB_CONTROL_PRESSED, toggleTab);
+			
 		}
 		
 		private function toggleTab(e:TabControlEvent):void  {
@@ -89,22 +91,45 @@ package classes.project.views {
 			view.removeChild(Sprite(this._currentPopup));
 		}
 		private function onInputPopupClosed(e:InputPopupEvent):void  {
+			//trace("Input: "+e.inputText);
 			this._currentPopup.hide();
-			
-			trace("Input: "+e.inputText);
 			view.addPlayer(e.inputText);
-			
-			
 			view.removeChild(Sprite(this._currentPopup));
 		}
 		private function onDeletePlayer(e:GuiControlEvent):void  {
 			trace("ProfileMenuMediator onDeletePlayer()");
 			//show popup with confirm and cancel buttons requesting confirmation that player is sure they want to delete character
+			if(view.getActivePlayer() != null)  {
+				var popup:TwoButtonPopup = new TwoButtonPopup("delete_player_popup", LibFactory.createMovieClip("FeedbackPopup_MC"));
+				popup.init();
+				popup.setText(Labels.getLabel("deletePlayerPopupTxt"));
+				popup.setLabels(Labels.getLabel("popup_no"), Labels.getLabel("popup_yes"));
+				popup.initBlocker(view.stage.stageWidth, view.stage.stageHeight);
+				popup.positionPopup();
+				popup.show();
+				_currentPopup = popup;
+				view.addChild(popup);
+			} else  {
+				this.noPlayerSelectedPopup();
+			}
 			
-			//if confirmed, delete character
+		}
+		private function deletePlayer(e:PopupEvent):void  {
+			trace("ProfileMenuMediator deletePlayer()");
+			this.onPopupClosed(e)
+			view.deletePlayer(view.getActivePlayer());
 			
-			//if cancelled, close popup and do nothing
-			
+		}
+		private function noPlayerSelectedPopup():void  {
+			var popup:BasePopup = new BasePopup("no_player_selected_popup", LibFactory.createMovieClip("FeedbackPopup_MC"));
+			popup.init();
+			popup.setText(Labels.getLabel("noPlayerSelectedPopupTxt"));
+			popup.setLabel(Labels.getLabel("popup_close"));
+			popup.initBlocker(view.stage.stageWidth, view.stage.stageHeight);
+			popup.positionPopup();
+			popup.show();
+			_currentPopup = popup;
+			view.addChild(popup);
 		}
 		private function onLoadPlayer(e:GuiControlEvent):void  {
 			trace("ProfileMenuMediator onLoadPlayer()");

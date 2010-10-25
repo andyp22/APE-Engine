@@ -12,6 +12,8 @@ package classes.project.events  {
 		public static const POPUP_OPEN:String = "POPUP_OPEN";
 		public static const POPUP_CLOSED:String = "POPUP_CLOSED";
 		
+		public static const TWO_BUTTON_POPUP_CONFIRMED:String = "TWO_BUTTON_POPUP_CONFIRMED";
+		
 		
 		
 		public function PopupEvent(sType:String)  {

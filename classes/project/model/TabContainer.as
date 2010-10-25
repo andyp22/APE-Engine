@@ -10,6 +10,7 @@ package classes.project.model  {
 	import classes.project.core.Server;
 	import classes.project.model.BaseOverlay;
 	import classes.project.model.controls.TabControl;
+	import classes.project.model.overlays.*;
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -98,6 +99,20 @@ package classes.project.model  {
 				if(this._tabs[i].getName() == sName)  {
 					this._tabs[i].select();
 				}
+			}
+		}
+		public function setOverlayData(sOverlay:String, aData:Array):void  {
+			switch(sOverlay)  {
+				case "players_tab":
+					PlayerProfileOverlay(this.getOverlay(sOverlay)).setProfileData(aData);
+					break;
+				case "characters_tab":
+					//CharacterProfileOverlay(this.getOverlay(sOverlay)).setProfileData(aData);
+					break;
+				case "history_tab":
+					//CharacterHistoryOverlay(this.getOverlay(sOverlay)).setProfileData(aData);
+					break;
+				
 			}
 		}
 		
