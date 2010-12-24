@@ -40,7 +40,7 @@ package classes.project.model.grid {
 		private var _HUGE_MAP:Array = [38, 60];
 		private var _CURRENT_MAP:Array = new Array();
 		
-		private var bRandomizeMap:Boolean = true;
+		private var bRandomizeMap:Boolean = false;
 		
 		
 		/**

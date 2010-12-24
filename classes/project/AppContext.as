@@ -125,6 +125,7 @@ package classes.project  {
 			mediatorMap.mapView(NewGameView, NewGameMediator);
 			mediatorMap.mapView(OptionsMenuView, OptionsMenuMediator);
 			mediatorMap.mapView(ProfileMenuView, ProfileMenuMediator);
+			mediatorMap.mapView(RegionMapView, RegionMapMediator);
 			mediatorMap.mapView(ReportBugView, ReportBugMediator);
 			mediatorMap.mapView(SaveGameView, SaveGameMediator);
 			

@@ -17,6 +17,7 @@ package classes.project.core  {
 		public static var REPORT_BUG_STATE:String = "REPORT_BUG_STATE";
 		public static var SAVING_VIEW_STATE:String = "SAVING_VIEW_STATE";
 		public static var START_UP_STATE:String = "START_UP_STATE";
+		public static var TEST_GAME_STATE:String = "TEST_GAME_STATE";
 		
 		
 		

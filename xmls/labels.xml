@@ -29,6 +29,9 @@
 	<label sId="deletePlayerPopupTxt" text="Are you sure you want to delete this profile? You will lose all data associated with it." />
 	<label sId="noPlayerSelectedPopupTxt" text="You have not selected a player. Please select a player and try again." />
 	
+	<!-- New Game View -->
+	<label sId="testGame" text="Test Game" />
+	<label sId="sample_piece_txt" text="Some text for the Tooltip." />
 	
 	<!-- Popups -->
 	<label sId="popup_add" text="ADD" />

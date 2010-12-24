@@ -60,6 +60,9 @@
 				case "save_game_view":
 					[Inject] view = new SaveGameView(sView, "swfs_views_menuScreens");
 					break;
+				case "test_game_view":
+					[Inject] view = new RegionMapView(sView, LibFactory.createMovieClip("RegionMap_BG"));
+					break;
 				/*
 				case "":
 					

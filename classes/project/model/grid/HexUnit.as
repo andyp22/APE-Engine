@@ -1,88 +1,52 @@
 ﻿/**
- * classes.project.model.Player
+ * classes.project.model.grid.HexUnit
  * @version 1.0.0
  * @author andrew page
  */
-package classes.project.model {
+package classes.project.model.grid {
 	
-	import classes.project.core.Labels;
 	import classes.project.core.MapManager;
 	import classes.project.core.Server;
-	import classes.project.events.GameControlEvent;
-	import classes.project.model.Tooltips;
-	import classes.project.model.grid.IGrid;
-	import classes.project.model.grid.ITile;
+	import classes.project.events.UnitFocusEvent;
+	import classes.project.model.grid.HexPiece;
 	
 	import flash.display.MovieClip;
-	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	
-	public class Player extends Sprite {
-		
-		private var CURRENT_MAP:String = "sample_map";
-		
-		private var _clip:MovieClip;
-		private var _currentTile:ITile = null;
-		
+	public class HexUnit extends HexPiece {
 		
 		/**
 		 * Constructor
 		 */
-		public function Player(mc:MovieClip)  {
-			trace("Creating a new Player...");
-			super();
-			this._clip = mc;
+		public function HexUnit(id:Number, sName:String, mc:MovieClip)  {
+			trace("Creating a new HexUnit...");
+			super(id, sName, mc);
+			
 			this.init();
 		}
 		private function init():void  {
-			addChild(this._clip);
+			trace("HexUnit init()");
 			
+			this.buttonMode = true;
+			this.mouseChildren = false;
+		}
+		
+		
+		override public function handleRollOver(e:MouseEvent):void  {
+			super.handleRollOver(e);
+		}
+		override public function handleRollOut(e:MouseEvent):void  {
+			super.handleRollOut(e);
+		}
+		override public function handleMousePress(e:MouseEvent):void  {
+			//when clicked this piece should dispatch two events
+			// one that destroys the old focus and
+			[Inject] Server.dispatch(new UnitFocusEvent("DESTROY_UNIT_FOCUS"));
+			// one that tells the RegionMapMediator this unit has focus now
+			[Inject] Server.dispatch(new UnitFocusEvent("NEW_UNIT_FOCUS", this));
 			this.addEventListener(KeyboardEvent.KEY_DOWN, this.handleKeyPress);
 			this.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyRelease);
-			this.addEventListener(MouseEvent.ROLL_OVER, this.handleRollOver);
-			this.addEventListener(MouseEvent.ROLL_OUT, this.handleRollOut);
-		}
-		public function setPosition(nX:Number, nY:Number):void  {
-			this.x = nX;
-			this.y = nY;
-			this._currentTile = this.getCurrentTile();
-		}
-		public function centerMap():void  {
-			[Inject] var grid:IGrid = MapManager.getGrid(CURRENT_MAP);
-			
-			var mapH:Number = grid.getHeight();
-			var mapW:Number = grid.getWidth();
-			var maskH:Number = grid.getMask().height;
-			var maskW:Number = grid.getMask().width;
-			
-			if(this.x != maskW/2 || this.y != maskH/2)  {
-				var xDiff:Number = (maskW/2 - this.x);
-				var yDiff:Number = (maskH/2 - this.y);
-				
-				if(this._currentTile.xPos() < (maskW/2 - this._currentTile.getWidth()*(1/4)))  {
-					//trace("less than halfway to the left side");
-					xDiff = 0;
-				}
-				if(this._currentTile.xPos() > (mapW - (maskW/2 - this._currentTile.getWidth()*(1/4))))  {
-					//trace("less than halfway to the right side");
-					xDiff = 0;
-				}
-				if(this._currentTile.yPos() < (maskH/2 - this._currentTile.getHeight()*(3/4)))  {
-					//trace("less than halfway to the top");
-					yDiff = 0;
-				}
-				if(this._currentTile.yPos() > (mapH - (maskH/2 - this._currentTile.getHeight()*(3/4))))  {
-					//trace("less than halfway to the bottom");
-					yDiff = 0;
-				}
-				
-				grid.updatePosition(xDiff, yDiff);
-				this.x += xDiff;
-				this.y += yDiff;
-				
-				[Inject] Server.dispatch(new GameControlEvent("MAP_POSITION_UPDATED"));
-			}
 		}
 		
 		public function handleKeyPress(e:KeyboardEvent):void  {
@@ -93,7 +57,7 @@ package classes.project.model {
             //trace("altKey: " + e.altKey);
 		}
 		public function handleKeyRelease(e:KeyboardEvent):void  {
-			//trace("handleKeyRelease() -- "+typeof(e.keyCode));
+			trace("handleKeyRelease() -- "+typeof(e.keyCode));
 			
 			var _Q:Number = 81;		//NW
 			var _W:Number = 87;		//N
@@ -105,6 +69,7 @@ package classes.project.model {
 			var nX:Number = 0;
 			var nY:Number = 0;
 			
+			trace("e.keyCode: "+e.keyCode);
 			switch(e.keyCode)  {
 				case _Q:
 					//trace("Q -- northwest");
@@ -155,25 +120,9 @@ package classes.project.model {
 			var moveY:Number = this.y + nY;
 			if(this.checkMove(moveX, moveY))  {
 				this.setPosition(moveX, moveY);
-				this.centerMap();
+				[Inject] Server.dispatch(new UnitFocusEvent("UNIT_POSITION_UPDATED"));
 			}
 		}
-		
-		public function handleRollOver(e:MouseEvent):void  {
-			[Inject] Tooltips.create(e);
-		}
-		public function handleRollOut(e:MouseEvent):void  {
-			[Inject] Tooltips.destroy();
-		}
-		public function getTooltipText():String  {
-			return Labels.getLabel("player_control_txt");
-		}
-		
-		public function getCurrentTile():ITile  {
-			[Inject] var grid:IGrid = MapManager.getGrid(CURRENT_MAP);
-			return grid.getTileByLocation(this.x, this.y);
-		}
-		
 		private function checkMove(nX:Number, nY:Number):Boolean  {
 			[Inject] var grid:IGrid = MapManager.getGrid(CURRENT_MAP);
 			if(grid.getTileByLocation(nX, nY) != null)  {
@@ -183,11 +132,16 @@ package classes.project.model {
 			}
 			return false;
 		}
+		
+		public function removeFocus():void  {
+			trace("removing focus: "+ this._sName);
+			this.removeEventListener(KeyboardEvent.KEY_DOWN, this.handleKeyPress);
+			this.removeEventListener(KeyboardEvent.KEY_UP, this.handleKeyRelease);
+		}
 		public function rotateAvatar(nDir:Number):void  {
 			//trace("rotation: "+this._clip.rotation);
 			this._clip.rotation = nDir;
 		}
-		
 		
 		
 	}

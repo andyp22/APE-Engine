@@ -22,6 +22,8 @@ package classes.project.events  {
 		public static const SAVE_GAME_BTN_PRESSED:String = "SAVE_GAME_BTN_PRESSED";
 		
 		
+		public static const TEST_GAME_BTN_PRESSED:String = "TEST_GAME_BTN_PRESSED";
+		
 		
 		public function GameControlEvent(sType:String)  {
 			super(sType);

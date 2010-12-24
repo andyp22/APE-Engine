@@ -38,12 +38,21 @@
 			control.y = 50;
 			this.addChild(control);
 		}
+		private function addTestGameBtn():void  {
+			[Inject] var control:GameMenuControl = new GameMenuControl("testGame", LibFactory.createMovieClip("GameMenuButton"));
+			control.setReleaseEvent(GameControlEvent.TEST_GAME_BTN_PRESSED);
+			[Inject] Server.addControl(control, "test_game");
+			control.x = 50;
+			control.y = 50 + control.height + 5;
+			this.addChild(control);
+		}
 		
 		override public function show():void  {
 			this._display = MovieClip(Server.getAsset(this._assetId));
 			this.addChild(this._display);
 			this._display.gotoAndPlay("newGame");
 			this.addGameMenuBtn();
+			this.addTestGameBtn();
 			super.show();
 			
 		}
