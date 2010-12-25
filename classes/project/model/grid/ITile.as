@@ -13,6 +13,7 @@ package classes.project.model.grid  {
 		function xPos():Number;
 		function yPos():Number;
 		function isWalkable():Boolean;
+		function isWater():Boolean;
 		
 	}
 }

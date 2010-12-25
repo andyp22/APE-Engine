@@ -13,6 +13,7 @@ package classes.project.events  {
 		
 		public var unit:HexUnit;
 		
+		public static const CENTER_FOCUSED_UNIT:String = "CENTER_FOCUSED_UNIT";
 		public static const DESTROY_UNIT_FOCUS:String = "DESTROY_UNIT_FOCUS";
 		public static const NEW_UNIT_FOCUS:String = "NEW_UNIT_FOCUS";
 		public static const UNIT_POSITION_UPDATED:String = "UNIT_POSITION_UPDATED";

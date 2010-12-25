@@ -86,6 +86,12 @@ package classes.project.model.grid {
 		public function isWalkable():Boolean  {
 			return this._walkable;
 		}
+		public function isWater():Boolean  {
+			if(this._type.indexOf("water") > -1)  {
+				return true;
+			}
+			return false;
+		}
 		public function setType(sType:String):void  {
 			this._type = sType;
 			this._clip.mcBg.mcTerrain.gotoAndStop(this._type);
@@ -93,7 +99,7 @@ package classes.project.model.grid {
 		
 		public function handleRollOver(e:MouseEvent):void  {
 			//trace("handleRollOver() -- "+e.target);
-			//trace("Position: "+this.x+" -- "+this.y);
+			trace("Position: "+this.x+" -- "+this.y);
 			this._clip.mcBg.mcHover.visible = true;
 		}
 		public function handleRollOut(e:MouseEvent):void  {

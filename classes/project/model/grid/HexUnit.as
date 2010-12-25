@@ -16,6 +16,13 @@ package classes.project.model.grid {
 	
 	public class HexUnit extends HexPiece {
 		
+		private var _ctrlPressed:Boolean = false;
+		
+		private var _offenseRating:Number = -1;
+		private var _defenseRating:Number = -1;
+		private var _hitpoints:Number = 1;
+		private var _movementPoints:Number = 1;
+		
 		/**
 		 * Constructor
 		 */
@@ -31,8 +38,6 @@ package classes.project.model.grid {
 			this.buttonMode = true;
 			this.mouseChildren = false;
 		}
-		
-		
 		override public function handleRollOver(e:MouseEvent):void  {
 			super.handleRollOver(e);
 		}
@@ -42,29 +47,36 @@ package classes.project.model.grid {
 		override public function handleMousePress(e:MouseEvent):void  {
 			//when clicked this piece should dispatch two events
 			// one that destroys the old focus and
-			[Inject] Server.dispatch(new UnitFocusEvent("DESTROY_UNIT_FOCUS"));
 			// one that tells the RegionMapMediator this unit has focus now
-			[Inject] Server.dispatch(new UnitFocusEvent("NEW_UNIT_FOCUS", this));
+			[Inject] Server.dispatch(new UnitFocusEvent("DESTROY_UNIT_FOCUS"));
+			
 			this.addEventListener(KeyboardEvent.KEY_DOWN, this.handleKeyPress);
 			this.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyRelease);
+			[Inject] Server.dispatch(new UnitFocusEvent("NEW_UNIT_FOCUS", this));
 		}
-		
 		public function handleKeyPress(e:KeyboardEvent):void  {
 			//trace("handleKeyPress() -- "+e.keyCode);
-			//trace("ctrlKey: " + e.ctrlKey);
-            //trace("keyLocation: " + e.keyLocation);
-            //trace("shiftKey: " + e.shiftKey);
-            //trace("altKey: " + e.altKey);
+			var _Ctrl:Number = 17;		//Control key
+			
+			switch(e.keyCode)  {
+				case _Ctrl:
+					_ctrlPressed = true;
+					break;
+			}
+			
 		}
 		public function handleKeyRelease(e:KeyboardEvent):void  {
 			//trace("handleKeyRelease() -- "+typeof(e.keyCode));
 			
-			var _Q:Number = 81;		//NW
-			var _W:Number = 87;		//N
-			var _E:Number = 69;		//NE
-			var _A:Number = 65;		//SW
-			var _S:Number = 83;		//S
-			var _D:Number = 68;		//SE
+			var _Q:Number = 81;			//NW
+			var _W:Number = 87;			//N
+			var _E:Number = 69;			//NE
+			var _A:Number = 65;			//SW
+			var _S:Number = 83;			//S
+			var _D:Number = 68;			//SE
+			
+			var _Ctrl:Number = 17;		//Control key
+			var _C:Number = 67;			//Center map on me
 			
 			var nX:Number = 0;
 			var nY:Number = 0;
@@ -115,6 +127,14 @@ package classes.project.model.grid {
 					nY = this._currentTile.getHeight()/2;
 					this.rotateAvatar(125);
 					break;
+				case _C:
+					if(_ctrlPressed)  {
+						[Inject] Server.dispatch(new UnitFocusEvent("CENTER_FOCUSED_UNIT"));
+					}
+					return;
+				case _Ctrl:
+					_ctrlPressed = false;
+					return;
 			}
 			var moveX:Number = this.x + nX;
 			var moveY:Number = this.y + nY;
@@ -123,7 +143,7 @@ package classes.project.model.grid {
 				[Inject] Server.dispatch(new UnitFocusEvent("UNIT_POSITION_UPDATED"));
 			}
 		}
-		private function checkMove(nX:Number, nY:Number):Boolean  {
+		public function checkMove(nX:Number, nY:Number):Boolean  {
 			[Inject] var grid:IGrid = MapManager.getGrid(CURRENT_MAP);
 			if(grid.getTileByLocation(nX, nY) != null)  {
 				if(grid.getTileByLocation(nX, nY).isWalkable())  {

@@ -63,20 +63,16 @@ package classes.project.model.grid {
 		public function getTooltipText():String  {
 			return Labels.getLabel("sample_piece_txt");
 		}
-		
 		public function getCurrentTile():ITile  {
 			[Inject] var grid:IGrid = MapManager.getGrid(CURRENT_MAP);
 			return grid.getTileByLocation(this.x, this.y);
 		}
-		
 		public function getID():Number  {
 			return this._id;
 		}
 		public function getName():String  {
 			return this._sName;
 		}
-		
-		
 		
 	}
 }

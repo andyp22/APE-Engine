@@ -38,12 +38,15 @@ package classes.project.views {
 			
 			view.init(MASK_WIDTH, MASK_HEIGHT);
 			
+			eventMap.mapListener(eventDispatcher, UnitFocusEvent.CENTER_FOCUSED_UNIT, onCenterFocusedUnit);
 			eventMap.mapListener(eventDispatcher, UnitFocusEvent.DESTROY_UNIT_FOCUS, onUnitFocusDestroyed);
 			eventMap.mapListener(eventDispatcher, UnitFocusEvent.NEW_UNIT_FOCUS, onNewUnitFocus);
 			eventMap.mapListener(eventDispatcher, UnitFocusEvent.UNIT_POSITION_UPDATED, onUnitPositionChanged);
 			
 		}
-		
+		private function onCenterFocusedUnit(e:UnitFocusEvent) : void  {
+			this.centerScreen(this._unit);
+		}
 		private function onUnitFocusDestroyed(e:UnitFocusEvent) : void  {
 			trace("Unit focus destroyed!!");
 			if(this._unit != null)  {
@@ -91,11 +94,19 @@ package classes.project.views {
 				yDiff = (MASK_HEIGHT/2) * (-1);
 			} else if(ansY <= 0)  {
 				yDiff = (MASK_HEIGHT/2);
+			} else if(ansY > (MASK_HEIGHT/2) && ansY < MASK_HEIGHT)  {
+				yDiff = (ansY - (MASK_HEIGHT/2)) * (-1);
+			} else if(ansY < (MASK_HEIGHT/2) && ansY > 0)  {
+				yDiff = ((MASK_HEIGHT/2) - ansY);
 			}
 			if(ansX >= MASK_WIDTH)  {
 				xDiff = (MASK_WIDTH/2) * (-1);
 			} else if(ansX <= 0)  {
 				xDiff = (MASK_WIDTH/2);
+			} else if(ansX > (MASK_WIDTH/2) && ansX < MASK_WIDTH)  {
+				xDiff = (ansX - (MASK_WIDTH/2)) * (-1);
+			} else if(ansX < (MASK_WIDTH/2) && ansX > 0)  {
+				xDiff = ((MASK_WIDTH/2) - ansX);
 			}
 			
 			view.updatePosition(xDiff, yDiff);
