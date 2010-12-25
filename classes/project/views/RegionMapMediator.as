@@ -38,7 +38,6 @@ package classes.project.views {
 			
 			view.init(MASK_WIDTH, MASK_HEIGHT);
 			
-			//eventMap.mapListener(eventDispatcher, GameControlEvent.MAP_POSITION_UPDATED, onMapPositionChanged);
 			eventMap.mapListener(eventDispatcher, UnitFocusEvent.DESTROY_UNIT_FOCUS, onUnitFocusDestroyed);
 			eventMap.mapListener(eventDispatcher, UnitFocusEvent.NEW_UNIT_FOCUS, onNewUnitFocus);
 			eventMap.mapListener(eventDispatcher, UnitFocusEvent.UNIT_POSITION_UPDATED, onUnitPositionChanged);
@@ -56,91 +55,50 @@ package classes.project.views {
 			this._unit = e.unit;
 		}
 		private function onUnitPositionChanged(e:UnitFocusEvent) : void  {
-			trace("Unit position has changed!!");
+			//trace("Unit position has changed!!");
 			//are we at the edge of the viewable area?
 			if(!this.checkEdges())  {
 				return;
 			}
-			//what is the current position of the unit?
-			var currentX:Number = this._unit.x;
-			var currentY:Number = this._unit.y;
-			
-			trace("currentX: "+currentX);
-			trace("currentY: "+currentY);
-			
-			trace("view._units_lvl.x: "+view._units_lvl.x);
-			trace("view._units_lvl.y: "+view._units_lvl.y);
-			
-			
-			var ansX:Number = (currentX - (-view._units_lvl.x));
-			var ansY:Number = (currentY - (-view._units_lvl.y));
-			trace("answer X: "+ ansX);
-			trace("answer Y: "+ ansY);
-			
-			//how far from the center is the unit?
-			var nDiffX:Number = currentX - (MASK_WIDTH/2);
-			var nDiffY:Number = currentY - (MASK_HEIGHT/2);
-			
-			trace("nDiffX: "+nDiffX);
-			trace("nDiffY: "+nDiffY);
-			
-			//shift the layers by this difference
-			
-			this.centerMap(this._unit);
-			//view.update(nDiffX, nDiffY);
+			trace("Need to update map!!");
+			this.centerScreen(this._unit);
 		}
 		private function checkEdges():Boolean  {
 			//what is the current position of the unit?
 			var currentX:Number = this._unit.x;
 			var currentY:Number = this._unit.y;
 			
-			var ansX:Number = (currentX - (-view._units_lvl.x));
-			var ansY:Number = (currentY - (-view._units_lvl.y));
+			var ansX:Number = (currentX - (-view.clip.x));
+			var ansY:Number = (currentY - (-view.clip.y));
 			
 			if(ansX <= 0 || ansX >= MASK_WIDTH || ansY <= 0 || ansY >= MASK_HEIGHT)  {
-				trace("should update view position");
 				return true;
 			}
-			/*if(ansY <= 0 || ansY >= MASK_HEIGHT)  {
-				//return true;
-			}*/
-			
 			return false;
 		}
-		public function centerMap(unit:HexUnit):void  {
-			var sMapName:String = "sample_map";
-			[Inject] var grid:IGrid = view.grid;
+		public function centerScreen(hUnit:HexUnit):void  {
+			trace("centerMap()");
+			var currentX:Number = hUnit.x;
+			var currentY:Number = hUnit.y;
 			
-			var mapH:Number = grid.getHeight();
-			var mapW:Number = grid.getWidth();
-			var maskH:Number = grid.getMask().height;
-			var maskW:Number = grid.getMask().width;
+			var ansX:Number = (currentX - (-view.clip.x));
+			var ansY:Number = (currentY - (-view.clip.y));
 			
-			if(unit.x != maskW/2 || unit.y != maskH/2)  {
-				var xDiff:Number = (maskW/2 - unit.x);
-				var yDiff:Number = (maskH/2 - unit.y);
-				
-				if(unit.getCurrentTile().xPos() < (maskW/2 - unit.getCurrentTile().getWidth()*(1/4)))  {
-					//trace("less than halfway to the left side");
-					xDiff = 0;
-				}
-				if(unit.getCurrentTile().xPos() > (mapW - (maskW/2 - unit.getCurrentTile().getWidth()*(1/4))))  {
-					//trace("less than halfway to the right side");
-					xDiff = 0;
-				}
-				if(unit.getCurrentTile().yPos() < (maskH/2 - unit.getCurrentTile().getHeight()*(3/4)))  {
-					//trace("less than halfway to the top");
-					yDiff = 0;
-				}
-				if(unit.getCurrentTile().yPos() > (mapH - (maskH/2 - unit.getCurrentTile().getHeight()*(3/4))))  {
-					//trace("less than halfway to the bottom");
-					yDiff = 0;
-				}
-				
-				grid.updatePosition(xDiff, yDiff);
-				view.update(xDiff, yDiff);
-				//[Inject] Server.dispatch(new GameControlEvent("MAP_POSITION_UPDATED"));
+			var xDiff:Number = 0;
+			var yDiff:Number = 0;
+			
+			if(ansY >= MASK_HEIGHT)  {
+				yDiff = (MASK_HEIGHT/2) * (-1);
+			} else if(ansY <= 0)  {
+				yDiff = (MASK_HEIGHT/2);
 			}
+			if(ansX >= MASK_WIDTH)  {
+				xDiff = (MASK_WIDTH/2) * (-1);
+			} else if(ansX <= 0)  {
+				xDiff = (MASK_WIDTH/2);
+			}
+			
+			view.updatePosition(xDiff, yDiff);
 		}
 		
 	}

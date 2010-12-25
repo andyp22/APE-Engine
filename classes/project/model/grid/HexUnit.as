@@ -57,7 +57,7 @@ package classes.project.model.grid {
             //trace("altKey: " + e.altKey);
 		}
 		public function handleKeyRelease(e:KeyboardEvent):void  {
-			trace("handleKeyRelease() -- "+typeof(e.keyCode));
+			//trace("handleKeyRelease() -- "+typeof(e.keyCode));
 			
 			var _Q:Number = 81;		//NW
 			var _W:Number = 87;		//N
@@ -69,7 +69,7 @@ package classes.project.model.grid {
 			var nX:Number = 0;
 			var nY:Number = 0;
 			
-			trace("e.keyCode: "+e.keyCode);
+			//trace("e.keyCode: "+e.keyCode);
 			switch(e.keyCode)  {
 				case _Q:
 					//trace("Q -- northwest");

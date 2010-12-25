@@ -28,17 +28,27 @@
 	
 	public class RegionMapView extends BaseView  {
 		
-		private var _clip:Sprite;
-		private var _map_lvl:Sprite;
-		public var _mapMask:Sprite;
-		private var _structures_lvl:Sprite;
-		public var _units_lvl:Sprite;
-		private var _player_lvl:Sprite;
-		private var _gui_lvl:Sprite;
 		private var _alert_lvl:Sprite;
+		private var _popup_lvl:Sprite;
+		private var _gui_lvl:Sprite;
+		
+		public var _mapMask:Sprite;
+		
+		private var _clip:Sprite;
+		public var _units_lvl:Sprite;
+		private var _structures_lvl:Sprite;
+		private var _terrain_lvl:Sprite;
+		private var _map_lvl:Sprite;
+		
+		
+		
+		
+		
+		
 		
 		[Inject] private var _hexGrid:HexGrid;
 		[Inject] private var _player:Player;
+		private var _player_lvl:Sprite;
 		
 		
 		/**
@@ -49,49 +59,46 @@
 			trace("Creating new RegionMapView() -- " + sName);
 		}
 		public function init(nW:Number, nH:Number):void  {
-			//the holder
-			this._clip = new Sprite();
+			//create the level holders
+			this.initLevels();
 			
-			//each level as the z-index should be from bottom to top
-			this._map_lvl = new Sprite();			//0
-			this._structures_lvl = new Sprite();	//1
-			this._units_lvl = new Sprite();			//2
-			this._player_lvl = new Sprite();		//3
-			this._gui_lvl = new Sprite();			//4
-			this._alert_lvl = new Sprite();			//5
+			//create the mask and attach to the clip
+			this._mapMask = this.createMask(nW, nH);
+			this.addChild(this._mapMask);
+			this._clip.mask = this._mapMask;
 			
-			this._clip.addChild(this._map_lvl);
-			this._clip.addChild(this._structures_lvl);
-			this._clip.addChild(this._units_lvl);
-			this._clip.addChild(this._player_lvl);
-			this._clip.addChild(this._gui_lvl);
-			this._clip.addChild(this._alert_lvl);
+			//create the map and attach to the map level
+			this.initGrid();
 			
-			this.addChild(this._clip);
-			
-			//create the map and add the player
-			this.initGrid(nW, nH);
+			//add the player's pieces
 			this.initPlayer();
 			
-			//testing
+			//testing code
 			this.testPieces();
 			this.addGameMenuBtn();
 			
 		}
-		private function initGrid(nW:Number, nH:Number):void  {
-			var startX:int = 20;
-			var startY:int = 20;
-			var sMapName:String = "sample_map";
+		private function initLevels():void  {
+			//each level as the z-index should be from bottom to top
+			this._map_lvl = new Sprite();			//0
+			this._terrain_lvl = new Sprite();		//1
+			this._structures_lvl = new Sprite();	//2
+			this._units_lvl = new Sprite();			//3
+			this._player_lvl = new Sprite();		//-- removing
+			this._clip = new Sprite();				//4
+			this._gui_lvl = new Sprite();			//5
+			this._popup_lvl = new Sprite();			//6
+			this._alert_lvl = new Sprite();			//7
 			
-			this._mapMask = this.createMask(nW, nH);
-			this._map_lvl.addChild(this._mapMask);
-			
-			this._hexGrid = new HexGrid(sMapName, startX, startY);
-			[Inject] this._hexGrid.setGridData(MapManager.getGridXML(sMapName));
-			this._hexGrid.mask = this._mapMask;
-			this._map_lvl.addChild(this._hexGrid);
-			
-			[Inject] MapManager.registerGrid(this._hexGrid);
+			this._clip.addChild(this._map_lvl);
+			this._clip.addChild(this._terrain_lvl);
+			this._clip.addChild(this._structures_lvl);
+			this._clip.addChild(this._units_lvl);
+			this._clip.addChild(this._player_lvl);	//-- removing
+			this.addChild(this._clip);
+			this.addChild(this._gui_lvl);
+			this.addChild(this._popup_lvl);
+			this.addChild(this._alert_lvl);
 		}
 		private function createMask(nW:Number, nH:Number):Sprite  {
 			var square:Sprite = new Sprite();
@@ -99,24 +106,27 @@
 			square.graphics.drawRect(0, 0, nW, nH);
 			return square;
 		}
-		public function update(nX:Number, nY:Number):void  {
-			this.shiftLevels(nX, nY);
+		private function initGrid():void  {
+			var startX:int = 20;
+			var startY:int = 20;
+			var sMapName:String = "sample_map";
 			
+			this._hexGrid = new HexGrid(sMapName, startX, startY);
+			[Inject] this._hexGrid.setGridData(MapManager.getGridXML(sMapName));
+			this._map_lvl.addChild(this._hexGrid);
+			
+			[Inject] MapManager.registerGrid(this._hexGrid);
 		}
-		private function shiftLevels(nX:Number, nY:Number):void  {
-			
-			trace("nX: "+nX);
-			trace("nY: "+nY);
-			
-			for(var i:Number = 0; i < this._units_lvl.numChildren; i++)  {
-				this._units_lvl.getChildAt(i).x += nX;
-				this._units_lvl.getChildAt(i).y += nY;
-			}
-			
-			
+		
+		public function updatePosition(nX:Number, nY:Number):void  {
+			this._clip.x += nX;
+			this._clip.y += nY;
 		}
 		public function get grid():HexGrid  {
 			return this._hexGrid;
+		}
+		public function get clip():Sprite  {
+			return this._clip;
 		}
 		/*
 		override public function show():void  {
@@ -142,7 +152,7 @@
 			var nX:Number = 260;
 			var nY:Number = 340;
 			this._player.setPosition(nX, nY);
-			this._player.centerMap();
+			//this._player.centerMap();
 			this._player_lvl.addChild(this._player);
 
 			trace("Starting Tile: "+this._hexGrid.getTileByLocation(this._player.x, this._player.y).getID());
