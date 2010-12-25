@@ -11,12 +11,12 @@
 	import classes.project.core.Server;
 	import classes.project.events.GameControlEvent;
 	import classes.project.model.GuiControl;
-	import classes.project.model.Player;
 	import classes.project.model.controls.GameMenuControl;
 	import classes.project.model.grid.HexGrid;
 	
 	
 	import classes.project.model.grid.HexPiece;
+	import classes.project.model.grid.HexStructure;
 	import classes.project.model.grid.HexUnit;
 	import classes.project.model.grid.HexWaterUnit;
 	
@@ -40,7 +40,6 @@
 		private var _mapMask:Sprite;
 		
 		[Inject] private var _hexGrid:HexGrid;
-		//[Inject] private var _player:Player;
 		
 		
 		/**
@@ -62,8 +61,15 @@
 			//create the map and attach to the map level
 			this.initGrid();
 			
-			//add the player's pieces
-			//this.initPlayer();
+			//create the GUI
+				//panel for mini-map and buttons
+					//construction
+					//World map
+					//Town map
+					//Main menu
+				//notifications list
+				//unit/structure info area
+					//only visible when a unit/structure is selected
 			
 			//testing code
 			this.testPieces();
@@ -112,17 +118,13 @@
 			this._clip.x += nX;
 			this._clip.y += nY;
 		}
-		public function get grid():HexGrid  {
-			return this._hexGrid;
-		}
 		public function get clip():Sprite  {
 			return this._clip;
 		}
 		/*
-		override public function show():void  {
-			super.show();
-			
-		}
+		
+			Code Testing
+		
 		*/
 		private function testPieces() : void  {
 			var i:Number = 100;
@@ -139,21 +141,11 @@
 			test3.setPosition(110, 120);
 			this._units_lvl.addChild(test3);
 			
-		}
-		
-		/*private function initPlayer():void  {
-			this._player = new Player(LibFactory.createMovieClip("Player_MC"));
-			this._player.buttonMode = true;
-			this._player.mouseChildren = false;
+			var test4:HexStructure = new HexStructure(i++, "test_piece_04", LibFactory.createMovieClip("Sample_single_structure_MC"));
+			test4.setPosition(200, 540);
+			this._structures_lvl.addChild(test4);
 			
-			var nX:Number = 260;
-			var nY:Number = 340;
-			this._player.setPosition(nX, nY);
-			//this._player.centerMap();
-			this._player_lvl.addChild(this._player);
-
-			trace("Starting Tile: "+this._hexGrid.getTileByLocation(this._player.x, this._player.y).getID());
-		}*/
+		}
 		
 		private function addGameMenuBtn():void  {
 			[Inject] var control:GameMenuControl = new GameMenuControl("gameMenu", LibFactory.createMovieClip("GameMenuButton"));

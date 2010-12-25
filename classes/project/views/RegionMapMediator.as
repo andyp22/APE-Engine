@@ -13,10 +13,6 @@ package classes.project.views {
 	import classes.project.model.grid.IGrid;
 	import classes.project.views.components.RegionMapView;
 	
-	import flash.geom.Point;
-	import flash.display.Stage;
-	
-	
 	import org.robotlegs.mvcs.Mediator;
 	
 	public class RegionMapMediator extends Mediator  {
@@ -48,13 +44,13 @@ package classes.project.views {
 			this.centerScreen(this._unit);
 		}
 		private function onUnitFocusDestroyed(e:UnitFocusEvent) : void  {
-			trace("Unit focus destroyed!!");
+			//trace("Unit focus destroyed!!");
 			if(this._unit != null)  {
 				this._unit.removeFocus();
 			}
 		}
 		private function onNewUnitFocus(e:UnitFocusEvent) : void  {
-			trace("New Unit focus!! " + e.unit);
+			//trace("New Unit focus!! " + e.unit);
 			this._unit = e.unit;
 		}
 		private function onUnitPositionChanged(e:UnitFocusEvent) : void  {
@@ -80,7 +76,7 @@ package classes.project.views {
 			return false;
 		}
 		public function centerScreen(hUnit:HexUnit):void  {
-			trace("centerMap()");
+			//trace("centerScreen()");
 			var currentX:Number = hUnit.x;
 			var currentY:Number = hUnit.y;
 			
@@ -90,15 +86,6 @@ package classes.project.views {
 			var xDiff:Number = 0;
 			var yDiff:Number = 0;
 			
-			if(ansY >= MASK_HEIGHT)  {
-				yDiff = (MASK_HEIGHT/2) * (-1);
-			} else if(ansY <= 0)  {
-				yDiff = (MASK_HEIGHT/2);
-			} else if(ansY > (MASK_HEIGHT/2) && ansY < MASK_HEIGHT)  {
-				yDiff = (ansY - (MASK_HEIGHT/2)) * (-1);
-			} else if(ansY < (MASK_HEIGHT/2) && ansY > 0)  {
-				yDiff = ((MASK_HEIGHT/2) - ansY);
-			}
 			if(ansX >= MASK_WIDTH)  {
 				xDiff = (MASK_WIDTH/2) * (-1);
 			} else if(ansX <= 0)  {
@@ -107,6 +94,15 @@ package classes.project.views {
 				xDiff = (ansX - (MASK_WIDTH/2)) * (-1);
 			} else if(ansX < (MASK_WIDTH/2) && ansX > 0)  {
 				xDiff = ((MASK_WIDTH/2) - ansX);
+			}
+			if(ansY >= MASK_HEIGHT)  {
+				yDiff = (MASK_HEIGHT/2) * (-1);
+			} else if(ansY <= 0)  {
+				yDiff = (MASK_HEIGHT/2);
+			} else if(ansY > (MASK_HEIGHT/2) && ansY < MASK_HEIGHT)  {
+				yDiff = (ansY - (MASK_HEIGHT/2)) * (-1);
+			} else if(ansY < (MASK_HEIGHT/2) && ansY > 0)  {
+				yDiff = ((MASK_HEIGHT/2) - ansY);
 			}
 			
 			view.updatePosition(xDiff, yDiff);
