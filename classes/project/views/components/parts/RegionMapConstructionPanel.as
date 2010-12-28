@@ -13,6 +13,7 @@ package classes.project.views.components.parts  {
 	import classes.project.events.PanelEvent;
 	import classes.project.model.ContainerPanel;
 	import classes.project.model.GuiControl;
+	import classes.project.model.controls.ConstructionPanelControl;
 	import classes.project.model.controls.GameMenuControl;
 	import classes.project.views.components.parts.MiniMap;
 	
@@ -52,17 +53,17 @@ package classes.project.views.components.parts  {
 			var nY:Number = 0;
 			
 			for(var i = 0; i < 12; i++)  {
-				var _btn:MovieClip = LibFactory.createMovieClip("ConstructionPanel_Btn");
-				_btn.x = nX;
-				_btn.y = nY;
-				trace("_btn.x: "+_btn.x);
-				trace("_btn.y: "+_btn.y);
-				this.mcContent.addChild(_btn);
+				var control:ConstructionPanelControl = new ConstructionPanelControl("construction_panel_btn_"+i, LibFactory.createMovieClip("ConstructionPanel_Btn"));
+				control.x = nX;
+				control.y = nY;
+				trace("control.x: "+control.x);
+				trace("control.y: "+control.y);
+				this.mcContent.addChild(control);
 				
-				nX += _btn.width + nPadding;
+				nX += control.width + nPadding;
 				if((((i+1) % 4) == 0) && i > 0)  {
 					nX = 0;
-					nY += _btn.height + nPadding;
+					nY += control.height + nPadding;
 				}
 			}
 			

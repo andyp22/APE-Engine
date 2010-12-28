@@ -104,6 +104,7 @@ package classes.project  {
 			injector.mapClass(IView, BaseView);
 			
 			// map some classes for use with our mediators, etc
+			injector.mapClass(ConstructionPanelControl, ConstructionPanelControl);
 			injector.mapClass(GuiControl, GuiControl);
 			injector.mapClass(GameMenuControl, GameMenuControl);
 			injector.mapClass(HexGrid, HexGrid);

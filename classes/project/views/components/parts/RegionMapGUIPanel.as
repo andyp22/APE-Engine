@@ -63,6 +63,7 @@ package classes.project.views.components.parts  {
 			[Inject] Server.addControl(constructionMenuBtn, "construction_menu");
 			constructionMenuBtn.x = nX;
 			constructionMenuBtn.y = nY;
+			constructionMenuBtn.disableTooltip();
 			this.mcContent.addChild(constructionMenuBtn);
 			
 			nY += constructionMenuBtn.height + nPadding;
@@ -72,6 +73,7 @@ package classes.project.views.components.parts  {
 			[Inject] Server.addControl(worldMapBtn, "world_map_btn");
 			worldMapBtn.x = nX;
 			worldMapBtn.y = nY;
+			worldMapBtn.disableTooltip();
 			this.mcContent.addChild(worldMapBtn);
 			
 			nY += worldMapBtn.height + nPadding;
@@ -81,6 +83,7 @@ package classes.project.views.components.parts  {
 			[Inject] Server.addControl(townMapBtn, "town_map_btn");
 			townMapBtn.x = nX;
 			townMapBtn.y = nY;
+			townMapBtn.disableTooltip();
 			this.mcContent.addChild(townMapBtn);
 			
 			nY += townMapBtn.height + nPadding;
@@ -90,6 +93,7 @@ package classes.project.views.components.parts  {
 			[Inject] Server.addControl(mainMenuBtn, "game_menu");
 			mainMenuBtn.x = nX;
 			mainMenuBtn.y = nY;
+			mainMenuBtn.disableTooltip();
 			this.mcContent.addChild(mainMenuBtn);
 			
 			//add the minimap
