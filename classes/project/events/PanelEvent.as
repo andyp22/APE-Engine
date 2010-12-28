@@ -16,6 +16,8 @@ package classes.project.events  {
 		public static const PANEL_OPENED:String = "PANEL_OPENED";
 		public static const PANEL_CLOSED:String = "PANEL_CLOSED";
 		
+		public static const MINI_MAP_UPDATED:String = "MINI_MAP_UPDATED";
+		
 		
 		public function PanelEvent(sType:String, panel:IPanel = null)  {
 			super(sType);

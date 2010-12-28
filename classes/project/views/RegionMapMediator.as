@@ -8,10 +8,13 @@ package classes.project.views {
 	import classes.project.core.State;
 	import classes.project.core.ViewManager;
 	import classes.project.core.ViewState;
+	import classes.project.events.GuiControlEvent;
+	import classes.project.events.PanelEvent;
 	import classes.project.events.UnitFocusEvent;
 	import classes.project.model.grid.HexUnit;
 	import classes.project.model.grid.IGrid;
 	import classes.project.views.components.RegionMapView;
+	import classes.project.views.components.parts.RegionMapGUIPanel;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -34,11 +37,24 @@ package classes.project.views {
 			
 			view.init(MASK_WIDTH, MASK_HEIGHT);
 			
+			eventMap.mapListener(eventDispatcher, GuiControlEvent.CONSTRUCTION_BTN_PRESSED, onConstructionBtnPressed);
+			eventMap.mapListener(eventDispatcher, PanelEvent.MINI_MAP_UPDATED, onMiniMapUpdated);
 			eventMap.mapListener(eventDispatcher, UnitFocusEvent.CENTER_FOCUSED_UNIT, onCenterFocusedUnit);
 			eventMap.mapListener(eventDispatcher, UnitFocusEvent.DESTROY_UNIT_FOCUS, onUnitFocusDestroyed);
 			eventMap.mapListener(eventDispatcher, UnitFocusEvent.NEW_UNIT_FOCUS, onNewUnitFocus);
 			eventMap.mapListener(eventDispatcher, UnitFocusEvent.UNIT_POSITION_UPDATED, onUnitPositionChanged);
 			
+		}
+		private function onConstructionBtnPressed(e:GuiControlEvent) : void  {
+			if(view.constructionPanelVisible())  {
+				view.hideConstructionPanel();
+			} else  {
+				view.showConstructionPanel();
+			}
+		}
+		private function onMiniMapUpdated(e:PanelEvent) : void  {
+			var panel:RegionMapGUIPanel = RegionMapGUIPanel(e.panel);
+			view.updateMap(-panel.mapCoords["x"], -panel.mapCoords["y"]);
 		}
 		private function onCenterFocusedUnit(e:UnitFocusEvent) : void  {
 			this.centerScreen(this._unit);
@@ -105,7 +121,7 @@ package classes.project.views {
 				yDiff = ((MASK_HEIGHT/2) - ansY);
 			}
 			
-			view.updatePosition(xDiff, yDiff);
+			view.updateMapPosition(xDiff, yDiff);
 		}
 		
 	}

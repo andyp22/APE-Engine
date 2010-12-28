@@ -33,6 +33,10 @@
 	<label sId="testGame" text="Test Game" />
 	<label sId="sample_piece_txt" text="Some text for the Tooltip." />
 	
+	<label sId="constructionMenu" text="Construction" />
+	<label sId="worldMapBtn" text="World Map" />
+	<label sId="townMapBtn" text="Town Map" />
+	
 	<!-- Popups -->
 	<label sId="popup_add" text="ADD" />
 	<label sId="popup_cancel" text="CANCEL" />

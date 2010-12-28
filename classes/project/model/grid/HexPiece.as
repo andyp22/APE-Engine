@@ -21,6 +21,7 @@ package classes.project.model.grid {
 		protected var _clip:MovieClip;
 		protected var _id:Number;
 		protected var _sName:String;
+		protected var _factionID:Number;
 		
 		protected var _currentTile:ITile = null;
 		protected var CURRENT_MAP:String = "sample_map";
@@ -72,6 +73,12 @@ package classes.project.model.grid {
 		}
 		public function getName():String  {
 			return this._sName;
+		}
+		public function getFactionID():Number  {
+			return this._factionID;
+		}
+		public function setFactionID(n:Number):void  {
+			this._factionID = n;
 		}
 		
 	}

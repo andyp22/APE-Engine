@@ -99,7 +99,7 @@ package classes.project.model.grid {
 		
 		public function handleRollOver(e:MouseEvent):void  {
 			//trace("handleRollOver() -- "+e.target);
-			trace("Position: "+this.x+" -- "+this.y);
+			//trace("Position: "+this.x+" -- "+this.y);
 			this._clip.mcBg.mcHover.visible = true;
 		}
 		public function handleRollOut(e:MouseEvent):void  {

@@ -13,6 +13,8 @@ package classes.project.model.grid  {
 		function getCurrentTile():ITile;
 		function getTooltipText():String;
 		function setPosition(nX:Number, nY:Number):void;
+		function getFactionID():Number;
+		function setFactionID(n:Number):void;
 		
 	}
 }

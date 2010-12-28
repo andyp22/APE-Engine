@@ -52,7 +52,11 @@ package classes.project.model.grid {
 			this.STARTX = startX;
 			this.STARTY = startY;
 			
-			this._CURRENT_MAP = this.getMapSize(mapSize);
+			if(mapSize != "")  {
+				this._CURRENT_MAP = this.getMapSize(mapSize);
+				this.bRandomizeMap = true;
+				this.init();
+			}
 			
 		}
 		private function init():void  {
