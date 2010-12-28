@@ -48,8 +48,23 @@ package classes.project.views.components.parts  {
 			this.mcContent.x = nPadding;
 			this.mcContent.y = this.mcHeader.height + nPadding;
 			
-			var BG:MovieClip = LibFactory.createMovieClip("Empty_BG");
-			this.mcContent.addChild(BG);
+			var nX:Number = 0;
+			var nY:Number = 0;
+			
+			for(var i = 0; i < 12; i++)  {
+				var _btn:MovieClip = LibFactory.createMovieClip("ConstructionPanel_Btn");
+				_btn.x = nX;
+				_btn.y = nY;
+				trace("_btn.x: "+_btn.x);
+				trace("_btn.y: "+_btn.y);
+				this.mcContent.addChild(_btn);
+				
+				nX += _btn.width + nPadding;
+				if((((i+1) % 4) == 0) && i > 0)  {
+					nX = 0;
+					nY += _btn.height + nPadding;
+				}
+			}
 			
 			addChild(this.mcContent);
 		}
@@ -58,10 +73,15 @@ package classes.project.views.components.parts  {
 			var newWidth:int = this.mcContent.width + nPadding*2;
 			var newHeight:int = this.mcHeader.height + this.mcContent.height + nPadding*2;
 			var widthDiff:int = this.mcPanel.mcBg.width - newWidth;
+			trace("newWidth: "+newWidth);
 			
 			this.mcPanel.mcBg.width = this.mcHeader.mcBg.width = newWidth;
 			this.mcPanel.mcBg.height = newHeight;
 			this.mcClose.x -= widthDiff;
+		}
+		
+		public function getWidth():Number  {
+			return this.mcPanel.mcBg.width;
 		}
 		
 	}

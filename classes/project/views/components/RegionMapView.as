@@ -181,7 +181,7 @@
 		}
 		private function initContructionPanel():void  {
 			this._constructionPanel = new RegionMapConstructionPanel("region_map_construction_panel", LibFactory.createMovieClip("GuiControlPanelMC"));
-			var nX:Number = this._mapMask.width - this._guiPanel.width - this._constructionPanel.width;
+			var nX:Number = this._mapMask.width - this._guiPanel.width - this._constructionPanel.getWidth();
 			var nY:Number = this._mapMask.height - this._constructionPanel.height - this._buffer;
 			this._constructionPanel.setPos(nX, nY);
 			this._constructionPanel.hide();
