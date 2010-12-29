@@ -15,6 +15,7 @@ package classes.project.views.components.parts  {
 	import classes.project.model.GuiControl;
 	import classes.project.model.controls.ConstructionPanelControl;
 	import classes.project.model.controls.GameMenuControl;
+	import classes.project.model.grid.HexStructure;
 	import classes.project.views.components.parts.MiniMap;
 	
 	import flash.display.Bitmap;
@@ -53,11 +54,15 @@ package classes.project.views.components.parts  {
 			var nY:Number = 0;
 			
 			for(var i = 0; i < 12; i++)  {
-				var control:ConstructionPanelControl = new ConstructionPanelControl("construction_panel_btn_"+i, LibFactory.createMovieClip("ConstructionPanel_Btn"));
+				var control:ConstructionPanelControl = new ConstructionPanelControl("construction_panel_btn_"+i, LibFactory.createMovieClip("ConstructionPanel_Btn_MC"));
 				control.x = nX;
 				control.y = nY;
-				trace("control.x: "+control.x);
-				trace("control.y: "+control.y);
+				
+				if(i == 0)  {
+					var test4:HexStructure = new HexStructure(99, "test_buildingA_", "Sample_single_structure_MC");
+					control.setBuilding(test4);
+				}
+				
 				this.mcContent.addChild(control);
 				
 				nX += control.width + nPadding;
@@ -65,6 +70,11 @@ package classes.project.views.components.parts  {
 					nX = 0;
 					nY += control.height + nPadding;
 				}
+				//temporary
+				if(i >= 8)  {
+					control.disable();
+				}
+				
 			}
 			
 			addChild(this.mcContent);
@@ -74,7 +84,6 @@ package classes.project.views.components.parts  {
 			var newWidth:int = this.mcContent.width + nPadding*2;
 			var newHeight:int = this.mcHeader.height + this.mcContent.height + nPadding*2;
 			var widthDiff:int = this.mcPanel.mcBg.width - newWidth;
-			trace("newWidth: "+newWidth);
 			
 			this.mcPanel.mcBg.width = this.mcHeader.mcBg.width = newWidth;
 			this.mcPanel.mcBg.height = newHeight;

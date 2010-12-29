@@ -30,7 +30,7 @@ package classes.project.model.grid {
 		 * Constructor
 		 */
 		public function HexPiece(id:Number, sName:String, mc:MovieClip)  {
-			trace("Creating a new HexPiece...");
+			//trace("Creating a new HexPiece...");
 			super();
 			this._clip = mc;
 			this._id = id;
@@ -39,7 +39,7 @@ package classes.project.model.grid {
 			this.init();
 		}
 		private function init():void  {
-			trace("HexPiece init()");
+			//trace("HexPiece init()");
 			this.addChild(this._clip);
 			
 			this.addEventListener(MouseEvent.ROLL_OVER, this.handleRollOver);

@@ -13,20 +13,13 @@
 	import classes.project.model.GuiControl;
 	import classes.project.model.controls.GameMenuControl;
 	import classes.project.model.grid.HexGrid;
-	
-	
-	import classes.project.model.grid.HexPiece;
 	import classes.project.model.grid.HexStructure;
 	import classes.project.model.grid.HexUnit;
 	import classes.project.model.grid.HexWaterUnit;
-	
-	
-	import classes.project.views.components.parts.RegionMapConstructionPanel;
-	import classes.project.views.components.parts.RegionMapGUIPanel;
-	
-	
 	import classes.project.model.grid.ITile;
 	import classes.project.views.components.BaseView;
+	import classes.project.views.components.parts.RegionMapConstructionPanel;
+	import classes.project.views.components.parts.RegionMapGUIPanel;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -87,6 +80,7 @@
 			//unit/structure info area
 			
 			
+			stage.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
 			
 		}
 		private function initLevels():void  {
@@ -135,6 +129,16 @@
 		private function removeScrollMask():void  {
 			this.removeEventListener(Event.ENTER_FRAME, handleEnterFrame);
 			this.removeEventListener(MouseEvent.MOUSE_MOVE, handleMouseMove);
+		}
+		private function mouseLeaveHandler(e:Event):void  {
+			//if the mouse leaves the stage
+			this.removeScrollMask();
+			this.addEventListener(MouseEvent.ROLL_OVER, mouseReturnHandler);
+		}
+		private function mouseReturnHandler(e:Event):void  {
+			//when the mouse returns to the stage
+			this.removeEventListener(MouseEvent.ROLL_OVER, mouseReturnHandler);
+			this.addScrollMask();
 		}
 		private function handleEnterFrame(e:Event):void  {
 			var nX:Number = 0;
@@ -220,6 +224,9 @@
 		public function get clip():Sprite  {
 			return this._clip;
 		}
+		public function get grid():HexGrid  {
+			return this._hexGrid;
+		}
 		override public function show() : void  {
 			super.show();
 			this._updateX = 0;
@@ -242,6 +249,12 @@
 		public function constructionPanelVisible():Boolean  {
 			return this._constructionPanel.visible;
 		}
+		public function constructBuilding(building:HexStructure, tile:ITile):void  {
+			//trace("constructBuilding: "+tile.xPos() +"  "+tile.yPos() + " " +building.getName());
+			var newBuilding:HexStructure = new HexStructure(building.getID(), building.getName(), building.clipID);
+			newBuilding.setPosition(tile.xPos(), tile.yPos());
+			this._structures_lvl.addChild(newBuilding);
+		}
 		/*
 		
 			Code Testing
@@ -262,9 +275,6 @@
 			test3.setPosition(110, 120);
 			this._units_lvl.addChild(test3);
 			
-			var test4:HexStructure = new HexStructure(i++, "test_piece_04", LibFactory.createMovieClip("Sample_single_structure_MC"));
-			test4.setPosition(200, 540);
-			this._structures_lvl.addChild(test4);
 			
 		}
 		
