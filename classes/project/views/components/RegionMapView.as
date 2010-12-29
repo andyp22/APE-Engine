@@ -75,6 +75,9 @@
 			//create the map and attach to the map level
 			this.initGrid();
 			
+			//testing code
+			this.testPieces();
+			
 			//create the GUI
 			this.initGUI();
 			this.initContructionPanel();
@@ -83,8 +86,7 @@
 			
 			//unit/structure info area
 			
-			//testing code
-			this.testPieces();
+			
 			
 		}
 		private function initLevels():void  {
@@ -117,7 +119,7 @@
 			var startX:int = 20;
 			var startY:int = 20;
 			var sMapName:String = "sample_map";
-			var sMapSize:String = "huge";
+			var sMapSize:String = "huge"; //tiny, small, standard, large, huge
 			
 			//this._hexGrid = new HexGrid(sMapName, startX, startY, sMapSize);
 			this._hexGrid = new HexGrid(sMapName, startX, startY);

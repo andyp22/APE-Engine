@@ -103,7 +103,7 @@ package classes.project.model.grid {
 						
 						if(tileHeight < 33000)  {
 							sType = "water";
-							//bWalkable = false;
+							bWalkable = false;
 						}
 						if(tileHeight >= 33000 && tileHeight < 38000)  {
 							sType = "dirt";
@@ -119,7 +119,7 @@ package classes.project.model.grid {
 						}
 						if(tileHeight >= 51500)  {
 							sType = "tops";
-							//bWalkable = false;
+							bWalkable = false;
 						}
 						
 						mcTile = new HexTile(tile_id, LibFactory.createMovieClip("HexTile_MC"), sType);
