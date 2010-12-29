@@ -5,6 +5,7 @@
  */
 package classes.project.model.grid {
 	
+	import classes.project.core.Labels;
 	import classes.project.core.LibFactory;
 	import classes.project.model.grid.HexPiece;
 	import classes.project.model.grid.ITile;
@@ -36,6 +37,9 @@ package classes.project.model.grid {
 		}
 		public function get clipID():String  {
 			return this._clipID;
+		}
+		override public function getTooltipText():String  {
+			return Labels.getLabel(this._sName + "_tooltip_txt");
 		}
 		
 	}

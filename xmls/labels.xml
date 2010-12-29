@@ -33,9 +33,24 @@
 	<label sId="testGame" text="Test Game" />
 	<label sId="sample_piece_txt" text="Some text for the Tooltip." />
 	
+	<!-- Region Map View -->
 	<label sId="constructionMenu" text="Construction" />
 	<label sId="worldMapBtn" text="World Map" />
 	<label sId="townMapBtn" text="Town Map" />
+	
+	<!-- Region Map Construction Panel -->
+	<label sId="construct_txt" text="Construct " />
+	<label sId="main_town" text="Town" />
+	<label sId="port" text="Port" />
+	<label sId="mine" text="Mine" />
+	<label sId="farm" text="Farm" />
+	<label sId="plantation" text="Plantation" />
+
+	<label sId="main_town_tooltip_txt" text="This building functions as the main town for your colony." />
+	<label sId="port_tooltip_txt" text="A port provides an extra location for your ships to dock in your colony." />
+	<label sId="mine_tooltip_txt" text="A mine provides a means for your colony to extract ore from the earth." />
+	<label sId="farm_tooltip_txt" text="A farm can grow many crops useful to a colony and the empire." />
+	<label sId="plantation_tooltip_txt" text="Plantations are much larger than farms and are capable of producing many goods." />
 	
 	<!-- Popups -->
 	<label sId="popup_add" text="ADD" />

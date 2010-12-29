@@ -5,6 +5,7 @@
  */
 package classes.project.model.controls {
 	
+	import classes.project.core.Labels;
 	import classes.project.core.Server;
 	import classes.project.model.GuiControl;
 	import classes.project.model.grid.HexStructure;
@@ -39,9 +40,11 @@ package classes.project.model.controls {
 			}
 			this.mcBg.gotoAndPlay("_overNoOut");
 		}
-		override public function setText(sText:String):void  {	}
+		override public function setText(sText:String):void  {
+			this.sText = sText;
+		}
 		override public function getTooltipText():String  {
-			return "Building Name";
+			return Labels.getLabel("construct_txt") + this.sText;
 		}
 		/**
 		 *	Methods

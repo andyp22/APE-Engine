@@ -50,8 +50,70 @@ package classes.project.views.components.parts  {
 			this.mcContent.x = nPadding;
 			this.mcContent.y = this.mcHeader.height + nPadding;
 			
+			
+			var aOrder:Array = new Array();
+			[Inject] var configs:Array = Configs.getConfigGroup("RegionStructureList");
+			for(var elm in configs)  {
+				var aConfigs:Array = configs[elm];
+				[Inject] var control:ConstructionPanelControl = new ConstructionPanelControl(aConfigs["sId"], LibFactory.createMovieClip("ConstructionPanel_Btn_MC"));
+				
+				var sGroups:String = aConfigs["c"];
+				[Inject] Server.addControl(control, sGroups);
+				
+				var building:HexStructure = new HexStructure(99, aConfigs["sId"], aConfigs["mcID"]);
+				control.setBuilding(building);
+				
+				
+				if(aConfigs["nOrder"] != null)  {
+					aOrder[aConfigs["nOrder"]] = control;
+				} else {
+					aOrder.push(control);
+				}
+				
+			}
+			
+			//display in the correct order
+			var nX:int = 0;
+			var nY:int = 0;
+			for(var i:int = 0; i < aOrder.length; i++)  {
+				aOrder[i].x = nX;
+				aOrder[i].y = nY;
+				
+				nX += control.width + nPadding;
+				if((((i+1) % 4) == 0) && i > 0)  {
+					nX = 0;
+					nY += control.height + nPadding;
+				}
+				
+				this.mcContent.addChild(aOrder[i]);
+				
+			}
+			
+			
+			
+			
+			
+			/*
+			
+			
+			
+			
+			
+			
 			var nX:Number = 0;
 			var nY:Number = 0;
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			for(var i = 0; i < 12; i++)  {
 				var control:ConstructionPanelControl = new ConstructionPanelControl("construction_panel_btn_"+i, LibFactory.createMovieClip("ConstructionPanel_Btn_MC"));
@@ -75,7 +137,7 @@ package classes.project.views.components.parts  {
 					control.disable();
 				}
 				
-			}
+			}*/
 			
 			addChild(this.mcContent);
 		}

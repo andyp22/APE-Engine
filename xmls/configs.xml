@@ -21,6 +21,14 @@
 		<config sId="clip_panel" type="ClipsPanel" xPos="25" yPos="25" bRegister="true" /-->
 	</configGroup>
 	
+	<configGroup id="RegionStructureList">
+		<config sId="main_town" mcID="Sample_single_structure_MC" nOrder="0" sGroups="region_construction_menu" />
+		<config sId="port" mcID="Sample_single_structure_MC" nOrder="1" sGroups="region_construction_menu" />
+		<config sId="mine" mcID="Sample_single_structure_MC" nOrder="2" sGroups="region_construction_menu" />
+		<config sId="farm" mcID="Sample_single_structure_MC" nOrder="3" sGroups="region_construction_menu" />
+		<config sId="plantation" mcID="Sample_single_structure_MC" nOrder="4" sGroups="region_construction_menu" />
+	</configGroup>
+	
 	
 	<!-- Profiles -->
 	<configGroup id="Tooltips" type="profile">
