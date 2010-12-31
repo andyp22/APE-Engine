@@ -13,6 +13,9 @@ package classes.project.events  {
 		
 		public var building:HexStructure;
 		
+		public static const BUILDING_DESTROYED:String = "BUILDING_DESTROYED";
+		public static const MAIN_TOWN_CONSTRUCTED:String = "MAIN_TOWN_CONSTRUCTED";
+		public static const MAIN_TOWN_DESTROYED:String = "MAIN_TOWN_DESTROYED";
 		public static const SELECT_BUILDING_FOR_CONSTRUCTION:String = "SELECT_BUILDING_FOR_CONSTRUCTION";
 		
 		

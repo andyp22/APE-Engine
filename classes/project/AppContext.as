@@ -89,6 +89,7 @@ package classes.project  {
 			injector.mapSingleton(Preloader);
 			injector.mapSingleton(Server);
 			injector.mapSingleton(State);
+			injector.mapSingleton(StructureFactory);
 			injector.mapSingleton(Tooltips);
 			injector.mapSingleton(UserData);
 			injector.mapSingleton(ViewManager);

@@ -43,12 +43,14 @@
 	<label sId="main_town" text="Town" />
 	<label sId="port" text="Port" />
 	<label sId="mine" text="Mine" />
+	<label sId="quarry" text="Quarry" />
 	<label sId="farm" text="Farm" />
 	<label sId="plantation" text="Plantation" />
 
 	<label sId="main_town_tooltip_txt" text="This building functions as the main town for your colony." />
 	<label sId="port_tooltip_txt" text="A port provides an extra location for your ships to dock in your colony." />
 	<label sId="mine_tooltip_txt" text="A mine provides a means for your colony to extract ore from the earth." />
+	<label sId="quarry_tooltip_txt" text="A quarry provides a means for your colony to extract stone from the earth." />
 	<label sId="farm_tooltip_txt" text="A farm can grow many crops useful to a colony and the empire." />
 	<label sId="plantation_tooltip_txt" text="Plantations are much larger than farms and are capable of producing many goods." />
 	

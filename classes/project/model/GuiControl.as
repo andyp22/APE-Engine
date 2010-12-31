@@ -54,10 +54,7 @@ package classes.project.model {
 			this.mouseChildren = false;
 			this.buttonMode = true;
 			//set up the mouse events
-			this.addEventListener(MouseEvent.MOUSE_DOWN, this.handlePress);
-			this.addEventListener(MouseEvent.ROLL_OVER, this.handleRollOver);
-			this.addEventListener(MouseEvent.ROLL_OUT, this.handleRollOut);
-			this.addEventListener(MouseEvent.MOUSE_UP, this.handleRelease);
+			this.addListeners();
 			
 			this.setText(Labels.getLabel(this.sName));
 			
@@ -88,7 +85,7 @@ package classes.project.model {
 		}
 		protected function handleRelease(e:MouseEvent):void  {
 			if(this.bEnabled)  {
-				trace("handleRelease -- "+ this + " : " + this.sName);
+				//trace("handleRelease -- "+ this + " : " + this.sName);
 				this.mcBg.gotoAndPlay("_overNoOut");
 				[Inject] Server.dispatch(new GuiControlEvent(this._releaseEvent));
 			}
@@ -106,16 +103,30 @@ package classes.project.model {
 		}
 		public function enable():void  {
 			this.bEnabled = true;
+			this.addListeners();
 			this.useHandCursor = true;
 			this.mcBg.gotoAndPlay("_up");
 		}
 		public function disable():void  {
 			this.bEnabled = false;
+			this.removeListeners();
 			this.useHandCursor = false;
 			this.mcBg.gotoAndPlay("_disabled");
 			if(this._bTooltip)  {
 				[Inject] Tooltips.destroy();
 			}
+		}
+		protected function addListeners():void  {
+			this.addEventListener(MouseEvent.MOUSE_DOWN, this.handlePress);
+			this.addEventListener(MouseEvent.ROLL_OVER, this.handleRollOver);
+			this.addEventListener(MouseEvent.ROLL_OUT, this.handleRollOut);
+			this.addEventListener(MouseEvent.MOUSE_UP, this.handleRelease);
+		}
+		protected function removeListeners():void  {
+			this.removeEventListener(MouseEvent.MOUSE_DOWN, this.handlePress);
+			this.removeEventListener(MouseEvent.ROLL_OVER, this.handleRollOver);
+			this.removeEventListener(MouseEvent.ROLL_OUT, this.handleRollOut);
+			this.removeEventListener(MouseEvent.MOUSE_UP, this.handleRelease);
 		}
 		
 		public function getName():String  {

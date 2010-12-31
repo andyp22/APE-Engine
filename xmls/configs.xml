@@ -21,12 +21,22 @@
 		<config sId="clip_panel" type="ClipsPanel" xPos="25" yPos="25" bRegister="true" /-->
 	</configGroup>
 	
+	<!-- Region Map -->
+	<configGroup id="RegionResourceList">
+		<config sId="gold" nOrder="5" nQuantity="2500" />
+		<config sId="wood" nOrder="4" nQuantity="500" />
+		<config sId="stone" nOrder="3" nQuantity="200" />
+		<config sId="metal" nOrder="2" nQuantity="300" />
+		<config sId="food" nOrder="1" nQuantity="50" />
+		<config sId="labor" nOrder="0" nQuantity="2" />
+	</configGroup>
 	<configGroup id="RegionStructureList">
-		<config sId="main_town" mcID="Sample_single_structure_MC" nOrder="0" sGroups="region_construction_menu" />
-		<config sId="port" mcID="Sample_single_structure_MC" nOrder="1" sGroups="region_construction_menu" />
-		<config sId="mine" mcID="Sample_single_structure_MC" nOrder="2" sGroups="region_construction_menu" />
-		<config sId="farm" mcID="Sample_single_structure_MC" nOrder="3" sGroups="region_construction_menu" />
-		<config sId="plantation" mcID="Sample_single_structure_MC" nOrder="4" sGroups="region_construction_menu" />
+		<config sId="main_town" mcID="Building_Main_Town_MC" nOrder="0" sGroups="region_construction_menu" />
+		<config sId="port" mcID="Building_Port_MC" nOrder="1" sGroups="region_construction_menu" />
+		<config sId="mine" mcID="Building_Mine_MC" nOrder="2" sGroups="region_construction_menu" />
+		<config sId="quarry" mcID="Building_Quarry_MC" nOrder="3" sGroups="region_construction_menu" />
+		<config sId="farm" mcID="Building_Farm_MC" nOrder="4" sGroups="region_construction_menu" />
+		<config sId="plantation" mcID="Building_Plantation_MC" nOrder="5" sGroups="region_construction_menu" />
 	</configGroup>
 	
 	
@@ -34,6 +44,10 @@
 	<configGroup id="Tooltips" type="profile">
 		<config sId="sSkin" value="Tooltip_MC" />
 		<config sId="sOrient" value="right" />
+	</configGroup>
+	<configGroup id="ResourceTooltips" type="profile">
+		<config sId="sSkin" value="Resource_Tooltip_MC" />
+		<config sId="sOrient" value="bottom" />
 	</configGroup>
 
 </configs>

@@ -74,6 +74,11 @@
 			[Inject] UserData.getInstance();
 			[Inject] UserData.init(Server.xmlData["userData"]);
 			/*
+			 *	Factories
+			 *
+			 */
+			[Inject] StructureFactory.getInstance();
+			/*
 			 *	Initialization Complete
 			 *
 			 */

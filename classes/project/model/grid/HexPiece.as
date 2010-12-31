@@ -42,9 +42,9 @@ package classes.project.model.grid {
 			//trace("HexPiece init()");
 			this.addChild(this._clip);
 			
-			this.addEventListener(MouseEvent.ROLL_OVER, this.handleRollOver);
-			this.addEventListener(MouseEvent.ROLL_OUT, this.handleRollOut);
-			this.addEventListener(MouseEvent.CLICK, this.handleMousePress);
+			this.addEventListener(MouseEvent.ROLL_OVER, handleRollOver);
+			this.addEventListener(MouseEvent.ROLL_OUT, handleRollOut);
+			this.addEventListener(MouseEvent.CLICK, handleMousePress);
 		}
 		public function setPosition(nX:Number, nY:Number):void  {
 			this.x = nX;
@@ -79,6 +79,13 @@ package classes.project.model.grid {
 		}
 		public function setFactionID(n:Number):void  {
 			this._factionID = n;
+		}
+		public function destroy():void  {
+			this.removeEventListener(MouseEvent.ROLL_OVER, this.handleRollOver);
+			this.removeEventListener(MouseEvent.ROLL_OUT, this.handleRollOut);
+			this.removeEventListener(MouseEvent.CLICK, this.handleMousePress);
+			
+			this.handleRollOut(new MouseEvent(MouseEvent.ROLL_OUT));
 		}
 		
 	}

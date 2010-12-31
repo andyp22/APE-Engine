@@ -34,7 +34,6 @@ package classes.project.model.grid {
 		}
 		private function init():void  {
 			trace("HexUnit init()");
-			
 			this.buttonMode = true;
 			this.mouseChildren = false;
 		}
@@ -53,6 +52,12 @@ package classes.project.model.grid {
 			this.addEventListener(KeyboardEvent.KEY_DOWN, this.handleKeyPress);
 			this.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyRelease);
 			[Inject] Server.dispatch(new UnitFocusEvent("NEW_UNIT_FOCUS", this));
+		}
+		override public function destroy():void  {
+			[Inject] Server.dispatch(new UnitFocusEvent("DESTROY_UNIT_FOCUS"));
+			this.removeFocus();
+			super.destroy()
+			
 		}
 		public function handleKeyPress(e:KeyboardEvent):void  {
 			//trace("handleKeyPress() -- "+e.keyCode);

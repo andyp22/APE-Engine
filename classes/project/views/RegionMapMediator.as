@@ -6,17 +6,13 @@
 package classes.project.views {
 	import classes.project.core.GameController;
 	import classes.project.core.LibFactory;
+	import classes.project.core.Server;
 	import classes.project.core.State;
+	import classes.project.core.StructureFactory;
 	import classes.project.core.ViewManager;
 	import classes.project.core.ViewState;
-	import classes.project.events.GuiControlEvent;
-	import classes.project.events.ConstructionPanelEvent;
-	import classes.project.events.PanelEvent;
-	import classes.project.events.UnitFocusEvent;
-	import classes.project.model.grid.HexStructure;
-	import classes.project.model.grid.HexUnit;
-	import classes.project.model.grid.IGrid;
-	import classes.project.model.grid.ITile;
+	import classes.project.events.*;
+	import classes.project.model.grid.*;;
 	import classes.project.views.components.RegionMapView;
 	import classes.project.views.components.parts.RegionMapGUIPanel;
 	
@@ -37,6 +33,7 @@ package classes.project.views {
 		
 		private var cursor:MovieClip;
 		private var _selectedBuilding:HexStructure;
+		private var _counter:Number = 0;
 		
 		
 		public function RegionMapMediator()  {
@@ -50,6 +47,9 @@ package classes.project.views {
 			
 			view.init(MASK_WIDTH, MASK_HEIGHT);
 			
+			eventMap.mapListener(eventDispatcher, ConstructionPanelEvent.BUILDING_DESTROYED, onBuildingDestroyed);
+			eventMap.mapListener(eventDispatcher, ConstructionPanelEvent.MAIN_TOWN_CONSTRUCTED, onMainTownConstructed);
+			eventMap.mapListener(eventDispatcher, ConstructionPanelEvent.MAIN_TOWN_DESTROYED, onMainTownDestroyed);
 			eventMap.mapListener(eventDispatcher, ConstructionPanelEvent.SELECT_BUILDING_FOR_CONSTRUCTION, onBuildingSelected);
 			eventMap.mapListener(eventDispatcher, GuiControlEvent.CONSTRUCTION_BTN_PRESSED, onConstructionBtnPressed);
 			eventMap.mapListener(eventDispatcher, PanelEvent.MINI_MAP_UPDATED, onMiniMapUpdated);
@@ -60,6 +60,18 @@ package classes.project.views {
 			
 			this.cursor = new MovieClip();
 			this._selectedBuilding = null;
+		}
+		private function onBuildingDestroyed(e:ConstructionPanelEvent) : void  {
+			//trace("onBuildingDestroyed() " + e.building.getName() + "_" + e.building.getID());
+			view.destroyBuilding(e.building.getName() + "_" + e.building.getID());
+		}
+		private function onMainTownConstructed(e:ConstructionPanelEvent) : void  {
+			//trace("onMainTownConstructed()");
+			[Inject] Server.getControl("main_town").disable();
+		}
+		private function onMainTownDestroyed(e:ConstructionPanelEvent) : void  {
+			//trace("onMainTownDestroyed()");
+			[Inject] Server.getControl("main_town").enable();
 		}
 		private function onBuildingSelected(e:ConstructionPanelEvent) : void  {
 			//trace("Building selected for construction: "+e.building.getName());
@@ -126,8 +138,17 @@ package classes.project.views {
 					this.cursor.visible = false;
 					view.removeChild(this.cursor);
 					Mouse.show();
+					
 					//build the structure
-					view.constructBuilding(this._selectedBuilding, currTile);
+					var aConfigs:Array = new Array();
+					aConfigs["type"] = this._selectedBuilding.getName();
+					aConfigs["nId"] = this._counter;
+					aConfigs["sMCid"] = this._selectedBuilding.clipID;
+					this._counter++;
+					
+					[Inject] var newBuilding:HexStructure = StructureFactory.makeStructure(aConfigs);
+					view.constructBuilding(newBuilding, currTile);
+					
 					//hide the unit/structure info area
 					
 					

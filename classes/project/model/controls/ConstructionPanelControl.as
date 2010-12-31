@@ -17,17 +17,18 @@ package classes.project.model.controls {
 	public class ConstructionPanelControl extends GuiControl {
 		
 		private var _building:HexStructure;
+		private var mcIcon:MovieClip;
 		
-		private var counter:Number = 0;
 		
 		/**
 		 *	Constructor
 		 */
 		public function ConstructionPanelControl(sName:String, mc:MovieClip, bAutosize:Boolean = false, building:HexStructure = null)  {
 			super(sName, mc, bAutosize);
-			
 			this._building = building;
+			this.mcIcon = mc.mcIcon;
 			this._releaseEvent = ConstructionPanelEvent.SELECT_BUILDING_FOR_CONSTRUCTION;
+			this.updateIcon();
 			
 		}
 		/**
@@ -46,14 +47,12 @@ package classes.project.model.controls {
 		override public function getTooltipText():String  {
 			return Labels.getLabel("construct_txt") + this.sText;
 		}
+		private function updateIcon():void  {
+			this.mcIcon.gotoAndStop(this.sName + "_icon");
+		}
 		/**
 		 *	Methods
 		 */
-		public function setBuilding(building:HexStructure):void  {
-			var newBuilding:HexStructure = new HexStructure(building.getID()+counter, building.getName(), building.clipID);
-			this._building = newBuilding;
-			counter++;
-		}
-		 
+		
 	}
 }

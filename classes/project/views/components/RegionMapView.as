@@ -9,6 +9,7 @@
 	import classes.project.core.LibFactory;
 	import classes.project.core.MapManager;
 	import classes.project.core.Server;
+	import classes.project.core.StructureFactory;
 	import classes.project.events.GameControlEvent;
 	import classes.project.model.GuiControl;
 	import classes.project.model.controls.GameMenuControl;
@@ -20,6 +21,7 @@
 	import classes.project.views.components.BaseView;
 	import classes.project.views.components.parts.RegionMapConstructionPanel;
 	import classes.project.views.components.parts.RegionMapGUIPanel;
+	import classes.project.views.components.parts.RegionMapResourcesPanel;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -47,6 +49,9 @@
 		[Inject] private var _hexGrid:HexGrid;
 		private var _guiPanel:RegionMapGUIPanel;
 		private var _constructionPanel:RegionMapConstructionPanel;
+		private var _resourcesPanel:RegionMapResourcesPanel;
+		
+		private var _buildings:Array;
 		
 		
 		/**
@@ -54,9 +59,12 @@
 		 */
 		public function RegionMapView(sName:String, mc:MovieClip)  {
 			super(sName, mc);
-			trace("Creating new RegionMapView() -- " + sName);
+			trace("Creating new RegionMapView()...");
 		}
 		public function init(nW:Number, nH:Number):void  {
+			
+			this._buildings = new Array();
+			
 			//create the level holders
 			this.initLevels();
 			
@@ -74,6 +82,7 @@
 			//create the GUI
 			this.initGUI();
 			this.initContructionPanel();
+			this.initResourcesPanel();
 			
 			//notifications list
 			
@@ -193,6 +202,11 @@
 			this._constructionPanel.hide();
 			this._gui_lvl.addChild(this._constructionPanel);
 		}
+		private function initResourcesPanel():void  {
+			 this._resourcesPanel = new RegionMapResourcesPanel("region_map_resources_panel", LibFactory.createMovieClip("GuiControlPanelMC"), this._mapMask.width);
+			 this._resourcesPanel.setPos(0, 0);
+			 this._gui_lvl.addChild(this._resourcesPanel);
+		}
 		/*
 			used to change the map position incrementally
 		
@@ -250,10 +264,17 @@
 			return this._constructionPanel.visible;
 		}
 		public function constructBuilding(building:HexStructure, tile:ITile):void  {
-			//trace("constructBuilding: "+tile.xPos() +"  "+tile.yPos() + " " +building.getName());
-			var newBuilding:HexStructure = new HexStructure(building.getID(), building.getName(), building.clipID);
-			newBuilding.setPosition(tile.xPos(), tile.yPos());
-			this._structures_lvl.addChild(newBuilding);
+			//trace("constructBuilding: "+tile.xPos() +"  "+tile.yPos() + " " +building.getName() + "_" + building.getID());
+			building.setPosition(tile.xPos(), tile.yPos());
+			this._structures_lvl.addChild(building);
+			this._buildings[building.getName() + "_" + building.getID()] = building;
+		}
+		public function destroyBuilding(sID:String):void  {
+			//trace("destroyBuilding: "+sID);
+			var building:HexStructure = this._buildings[sID];
+			building.destroy();
+			this._structures_lvl.removeChild(building);
+			this._buildings[sID] = null;
 		}
 		/*
 		

@@ -8,6 +8,7 @@ package classes.project.views.components.parts  {
 	import classes.project.core.Configs;
 	import classes.project.core.LibFactory;
 	import classes.project.core.Server;
+	import classes.project.core.StructureFactory;
 	import classes.project.events.GuiControlEvent;
 	import classes.project.events.GameControlEvent;
 	import classes.project.events.PanelEvent;
@@ -25,17 +26,19 @@ package classes.project.views.components.parts  {
 	
 	public class RegionMapConstructionPanel extends ContainerPanel  {
 		
-		
+		private var _controls:Array;
 		
 		public function RegionMapConstructionPanel(sName:String, mc:MovieClip)  {
-			trace("Creating new RegionMapConstructionPanel -- " + this + " : " + sName);
+			trace("Creating new RegionMapConstructionPanel...");
 			super(sName, mc);
 			this.init();
 		}
 		
 		private function init():void  {
-			trace("RegionMapConstructionPanel initializing...");
+			//trace("RegionMapConstructionPanel initializing...");
 			addChild(this.mcContent);
+			
+			this._controls = new Array();
 			
 			this.setHeader("Construction");
 			this.createContentContainer(new MovieClip());
@@ -55,14 +58,18 @@ package classes.project.views.components.parts  {
 			[Inject] var configs:Array = Configs.getConfigGroup("RegionStructureList");
 			for(var elm in configs)  {
 				var aConfigs:Array = configs[elm];
-				[Inject] var control:ConstructionPanelControl = new ConstructionPanelControl(aConfigs["sId"], LibFactory.createMovieClip("ConstructionPanel_Btn_MC"));
 				
-				var sGroups:String = aConfigs["c"];
+				var bConfigs:Array = new Array();
+				bConfigs["type"] = aConfigs["sId"];
+				bConfigs["nId"] = -1;
+				bConfigs["sMCid"] = aConfigs["mcID"];
+				
+				[Inject] var building:HexStructure = StructureFactory.makeStructure(bConfigs);
+				
+				[Inject] var control:ConstructionPanelControl = new ConstructionPanelControl(aConfigs["sId"], LibFactory.createMovieClip("ConstructionPanel_Btn_MC"), false, building);
+				
+				var sGroups:String = aConfigs["sGroups"];
 				[Inject] Server.addControl(control, sGroups);
-				
-				var building:HexStructure = new HexStructure(99, aConfigs["sId"], aConfigs["mcID"]);
-				control.setBuilding(building);
-				
 				
 				if(aConfigs["nOrder"] != null)  {
 					aOrder[aConfigs["nOrder"]] = control;
@@ -85,59 +92,10 @@ package classes.project.views.components.parts  {
 					nY += control.height + nPadding;
 				}
 				
+				this._controls.push(aOrder[i]);
 				this.mcContent.addChild(aOrder[i]);
 				
 			}
-			
-			
-			
-			
-			
-			/*
-			
-			
-			
-			
-			
-			
-			var nX:Number = 0;
-			var nY:Number = 0;
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			for(var i = 0; i < 12; i++)  {
-				var control:ConstructionPanelControl = new ConstructionPanelControl("construction_panel_btn_"+i, LibFactory.createMovieClip("ConstructionPanel_Btn_MC"));
-				control.x = nX;
-				control.y = nY;
-				
-				if(i == 0)  {
-					var test4:HexStructure = new HexStructure(99, "test_buildingA_", "Sample_single_structure_MC");
-					control.setBuilding(test4);
-				}
-				
-				this.mcContent.addChild(control);
-				
-				nX += control.width + nPadding;
-				if((((i+1) % 4) == 0) && i > 0)  {
-					nX = 0;
-					nY += control.height + nPadding;
-				}
-				//temporary
-				if(i >= 8)  {
-					control.disable();
-				}
-				
-			}*/
 			
 			addChild(this.mcContent);
 		}

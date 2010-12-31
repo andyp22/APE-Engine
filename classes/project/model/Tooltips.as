@@ -54,7 +54,14 @@
 			return _mcHolder;
 		}
 		
-		public static function create(e:MouseEvent) {
+		public static function create(e:MouseEvent, profile:String = "") {
+			if(profile != "")  {
+				[Inject] _profile = BaseProfile(Configs.profiles.getProfile(profile));
+				if(_profile.config["sOrient"] != undefined)  {
+					_sOrient = _profile.config["sOrient"];
+				}
+			}
+			
 			var sSkin:String = _profile.config["sSkin"];
 			
 			var xPos:Number = e.stageX - e.localX;
@@ -102,6 +109,10 @@
 			if(_showing)  {
 				_mcHolder.removeChild(_mcTip);
 				_showing = false;
+			}
+			[Inject] _profile = BaseProfile(Configs.profiles.getProfile("Tooltips"));
+			if(_profile.config["sOrient"] != undefined)  {
+				_sOrient = _profile.config["sOrient"];
 			}
 		}
 		

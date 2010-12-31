@@ -26,12 +26,12 @@ package classes.project.views.components.parts  {
 		private var _miniMap:MiniMap;
 		
 		public function RegionMapGUIPanel(sName:String, mc:MovieClip)  {
-			trace("Creating new RegionMapGUIPanel -- " + this + " : " + sName);
+			trace("Creating new RegionMapGUIPanel...");
 			super(sName, mc);
 		}
 		
 		public function init(bMap:Bitmap, nW:Number, nH:Number):void  {
-			trace("RegionMapGUIPanel initializing...");
+			//trace("RegionMapGUIPanel initializing...");
 			addChild(this.mcContent);
 			
 			this._miniMap = new MiniMap(bMap, 200, 150);
@@ -56,11 +56,12 @@ package classes.project.views.components.parts  {
 			
 			var nX:Number = 0;
 			var nY:Number = 0;
+			var sGroup:String = "region_gui_menu";
 			
 			//add some buttons			
 			[Inject] var constructionMenuBtn:GuiControl = new GuiControl("constructionMenu", LibFactory.createMovieClip("GameMenuButton"));
 			constructionMenuBtn.setReleaseEvent(GuiControlEvent.CONSTRUCTION_BTN_PRESSED);
-			[Inject] Server.addControl(constructionMenuBtn, "construction_menu");
+			[Inject] Server.addControl(constructionMenuBtn, sGroup);
 			constructionMenuBtn.x = nX;
 			constructionMenuBtn.y = nY;
 			constructionMenuBtn.disableTooltip();
@@ -70,7 +71,7 @@ package classes.project.views.components.parts  {
 			
 			[Inject] var worldMapBtn:GuiControl = new GuiControl("worldMapBtn", LibFactory.createMovieClip("GameMenuButton"));
 			//worldMapBtn.setReleaseEvent(GuiControlEvent.GAME_MENU_BTN_PRESSED);
-			[Inject] Server.addControl(worldMapBtn, "world_map_btn");
+			[Inject] Server.addControl(worldMapBtn, sGroup);
 			worldMapBtn.x = nX;
 			worldMapBtn.y = nY;
 			worldMapBtn.disableTooltip();
@@ -80,7 +81,7 @@ package classes.project.views.components.parts  {
 			
 			[Inject] var townMapBtn:GuiControl = new GuiControl("townMapBtn", LibFactory.createMovieClip("GameMenuButton"));
 			//townMapBtn.setReleaseEvent(GuiControlEvent.GAME_MENU_BTN_PRESSED);
-			[Inject] Server.addControl(townMapBtn, "town_map_btn");
+			[Inject] Server.addControl(townMapBtn, sGroup);
 			townMapBtn.x = nX;
 			townMapBtn.y = nY;
 			townMapBtn.disableTooltip();
@@ -90,7 +91,7 @@ package classes.project.views.components.parts  {
 			
 			[Inject] var mainMenuBtn:GameMenuControl = new GameMenuControl("gameMenu", LibFactory.createMovieClip("GameMenuButton"));
 			mainMenuBtn.setReleaseEvent(GameControlEvent.GAME_MENU_BTN_PRESSED);
-			[Inject] Server.addControl(mainMenuBtn, "game_menu");
+			[Inject] Server.addControl(mainMenuBtn, sGroup);
 			mainMenuBtn.x = nX;
 			mainMenuBtn.y = nY;
 			mainMenuBtn.disableTooltip();
