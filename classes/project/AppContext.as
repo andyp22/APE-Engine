@@ -87,6 +87,7 @@ package classes.project  {
 			injector.mapSingleton(OverlayFactory);
 			injector.mapSingleton(PanelManager);
 			injector.mapSingleton(Preloader);
+			injector.mapSingleton(ResourceManager);
 			injector.mapSingleton(Server);
 			injector.mapSingleton(State);
 			injector.mapSingleton(StructureFactory);

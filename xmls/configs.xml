@@ -23,12 +23,12 @@
 	
 	<!-- Region Map -->
 	<configGroup id="RegionResourceList">
-		<config sId="gold" nOrder="5" nQuantity="2500" />
-		<config sId="wood" nOrder="4" nQuantity="500" />
-		<config sId="stone" nOrder="3" nQuantity="200" />
-		<config sId="metal" nOrder="2" nQuantity="300" />
-		<config sId="food" nOrder="1" nQuantity="50" />
-		<config sId="labor" nOrder="0" nQuantity="2" />
+		<config sId="gold" nOrder="5" />
+		<config sId="wood" nOrder="4" />
+		<config sId="stone" nOrder="3" />
+		<config sId="metal" nOrder="2" />
+		<config sId="food" nOrder="1" />
+		<config sId="labor" nOrder="0" />
 	</configGroup>
 	<configGroup id="RegionStructureList">
 		<config sId="main_town" mcID="Building_Main_Town_MC" nOrder="0" sGroups="region_construction_menu" />
@@ -37,6 +37,26 @@
 		<config sId="quarry" mcID="Building_Quarry_MC" nOrder="3" sGroups="region_construction_menu" />
 		<config sId="farm" mcID="Building_Farm_MC" nOrder="4" sGroups="region_construction_menu" />
 		<config sId="plantation" mcID="Building_Plantation_MC" nOrder="5" sGroups="region_construction_menu" />
+	</configGroup>
+	
+	<!-- Resources -->
+	<configGroup id="ResourceMasterList">
+		<config sId="gold" mcID="ResourcesPanel_Resource_MC" nQuantity="2500" />
+		<config sId="wood" mcID="ResourcesPanel_Resource_MC" nQuantity="500" />
+		<config sId="stone" mcID="ResourcesPanel_Resource_MC" nQuantity="200" />
+		<config sId="metal" mcID="ResourcesPanel_Resource_MC" nQuantity="300" />
+		<config sId="food" mcID="ResourcesPanel_Resource_MC" nQuantity="500" />
+		<config sId="labor" mcID="ResourcesPanel_Resource_MC" nQuantity="10" />
+	</configGroup>
+	
+	<!-- Buildings -->
+	<configGroup id="StructureMasterList">
+		<config sId="main_town" nGold="1500" nLabor="2" nMetal="50" nStone="50" nWood="200" nFood="200" />
+		<config sId="port" nGold="100" nLabor="1" nMetal="10" nStone="10" nWood="10" nFood="50" />
+		<config sId="mine" nGold="100" nLabor="1" nMetal="10" nStone="10" nWood="10" nFood="50" />
+		<config sId="quarry" nGold="100" nLabor="1" nMetal="10" nStone="10" nWood="10" nFood="50" />
+		<config sId="farm" nGold="100" nLabor="1" nMetal="10" nStone="10" nWood="10" nFood="50" />
+		<config sId="plantation" nGold="100" nLabor="1" nMetal="10" nStone="10" nWood="10" nFood="50" />
 	</configGroup>
 	
 	

@@ -43,6 +43,9 @@ package classes.project.views.components.parts  {
 			this.setHeader("Construction");
 			this.createContentContainer(new MovieClip());
 			this.sizeToContents();
+			
+			[Inject] Server.disableControlGroup("region_construction_menu");
+			[Inject] Server.getControl("main_town").enable();
 		}
 		
 		override public function createContentContainer(mc:DisplayObject):void  {

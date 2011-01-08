@@ -276,6 +276,9 @@
 			this._structures_lvl.removeChild(building);
 			this._buildings[sID] = null;
 		}
+		public function updateResourcePanel():void  {
+			this._resourcesPanel.update();
+		}
 		/*
 		
 			Code Testing

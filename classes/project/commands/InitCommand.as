@@ -40,6 +40,12 @@
 			[Inject] MapManager.getInstance();
 			[Inject] MapManager.parseXMLData(Server.xmlData["mapGrids"]);
 			/*
+			 *	ResourceManager
+			 *
+			 */
+			[Inject] ResourceManager.getInstance();
+			[Inject] ResourceManager.parseResourceData();
+			/*
 			 *	Views
 			 *
 			 */
@@ -55,11 +61,6 @@
 			[Inject] PanelManager.setEventDispatcher(eventDispatcher);
 			[Inject] PanelManager.contextView = contextView;
 			[Inject] PanelManager.init();
-			/*
-			 *	Overlays
-			 *
-			 */
-			[Inject] OverlayFactory.getInstance();
 			/*
 			 *	Tooltips
 			 *
@@ -77,6 +78,7 @@
 			 *	Factories
 			 *
 			 */
+			[Inject] OverlayFactory.getInstance();
 			[Inject] StructureFactory.getInstance();
 			/*
 			 *	Initialization Complete

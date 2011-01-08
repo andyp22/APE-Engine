@@ -7,8 +7,10 @@ package classes.project.views.components.parts  {
 	
 	import classes.project.core.Configs;
 	import classes.project.core.LibFactory;
+	import classes.project.core.ResourceManager;
 	import classes.project.core.Server;
 	import classes.project.model.ContainerPanel;
+	import classes.project.model.PlayerResource;
 	import classes.project.model.Tooltips;
 	
 	import flash.display.DisplayObject;
@@ -18,11 +20,13 @@ package classes.project.views.components.parts  {
 	public class RegionMapResourcesPanel extends ContainerPanel  {
 		
 		private var _fixedWidth:Number;
+		private var _resources:Array;
 		
 		public function RegionMapResourcesPanel(sName:String, mc:MovieClip, nW:Number)  {
 			trace("Creating new RegionMapResourcesPanel -- " + this + " : " + sName);
 			super(sName, mc);
 			this._fixedWidth = nW;
+			this._resources = new Array();
 			this.init();
 		}
 		
@@ -51,10 +55,18 @@ package classes.project.views.components.parts  {
 			[Inject] var configs:Array = Configs.getConfigGroup("RegionResourceList");
 			for(var elm in configs)  {
 				var aConfigs:Array = configs[elm];
+				var resource:PlayerResource = null;
 				
-				var mcResource:MovieClip = LibFactory.createMovieClip("ResourcesPanel_Resource_MC");
-				mcResource.mcIcon.gotoAndStop(aConfigs["sId"]);
-				mcResource.sID = aConfigs["sId"];
+				[Inject] if(ResourceManager.hasResource(aConfigs["sId"]))  {
+					[Inject] resource = ResourceManager.getResource(aConfigs["sId"]);
+				} else  {
+					resource = new PlayerResource(aConfigs["sId"], "ResourcesPanel_Resource_MC", 0);
+					[Inject] ResourceManager.addResource(resource);
+				}
+				
+				var mcResource:MovieClip = LibFactory.createMovieClip(resource.getClipID());
+				mcResource.mcIcon.gotoAndStop(resource.getName());
+				mcResource.sID = resource.getName();
 				
 				if(aConfigs["nOrder"] != null)  {
 					aOrder[aConfigs["nOrder"]] = mcResource;
@@ -62,12 +74,7 @@ package classes.project.views.components.parts  {
 					aOrder.push(mcResource);
 				}
 				
-				if(aConfigs["nQuantity"] != null)  {
-					mcResource.tf.text = aConfigs["nQuantity"];
-				} else {
-					mcResource.tf.text = "0";
-				}
-				
+				mcResource.tf.text = resource.getQty();
 				mcResource.mouseChildren = false;
 				mcResource.buttonMode = true;
 				mcResource.useHandCursor = false;
@@ -79,6 +86,7 @@ package classes.project.views.components.parts  {
 				mcResource.addEventListener(MouseEvent.ROLL_OVER, onResourceRollOver);
 				mcResource.addEventListener(MouseEvent.ROLL_OUT, onResourceRollOut);
 				
+				this._resources.push(mcResource);
 			}
 			
 			//display in the correct order
@@ -114,6 +122,12 @@ package classes.project.views.components.parts  {
 		private function onResourceRollOut(e:MouseEvent):void  {
 			[Inject] Tooltips.destroy();
 		}
+		public function update():void  {
+			for(var i = 0; i < this._resources.length; i++)  {
+				this._resources[i].tf.text = ResourceManager.getResource(this._resources[i].sID).getQty();
+			}
+		}
+		
 		
 	}
 }

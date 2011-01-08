@@ -4,15 +4,18 @@
  * @author andrew page
  */
 package classes.project.views {
+	import classes.project.core.Configs;
 	import classes.project.core.GameController;
 	import classes.project.core.LibFactory;
+	import classes.project.core.ResourceManager;
 	import classes.project.core.Server;
 	import classes.project.core.State;
 	import classes.project.core.StructureFactory;
 	import classes.project.core.ViewManager;
 	import classes.project.core.ViewState;
 	import classes.project.events.*;
-	import classes.project.model.grid.*;;
+	import classes.project.model.PlayerResource;
+	import classes.project.model.grid.*;
 	import classes.project.views.components.RegionMapView;
 	import classes.project.views.components.parts.RegionMapGUIPanel;
 	
@@ -67,10 +70,12 @@ package classes.project.views {
 		}
 		private function onMainTownConstructed(e:ConstructionPanelEvent) : void  {
 			//trace("onMainTownConstructed()");
+			[Inject] Server.enableControlGroup("region_construction_menu");
 			[Inject] Server.getControl("main_town").disable();
 		}
 		private function onMainTownDestroyed(e:ConstructionPanelEvent) : void  {
 			//trace("onMainTownDestroyed()");
+			[Inject] Server.disableControlGroup("region_construction_menu");
 			[Inject] Server.getControl("main_town").enable();
 		}
 		private function onBuildingSelected(e:ConstructionPanelEvent) : void  {
@@ -128,8 +133,8 @@ package classes.project.views {
 			
 			if(this._selectedBuilding.targetTileValid(currTile))  {
 				//does the player have enough resources to build the structure?
-				var bEnoughMouney:Boolean = true;
-				if(bEnoughMouney)  {
+				[Inject] var bEnoughMoney:Boolean = ResourceManager.checkConstructionResources(this._selectedBuilding.getName());
+				if(bEnoughMoney)  {
 					//remove the events
 					view.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
 					view.removeEventListener(KeyboardEvent.KEY_UP, handleConstructionKeyRelease);
@@ -148,6 +153,10 @@ package classes.project.views {
 					
 					[Inject] var newBuilding:HexStructure = StructureFactory.makeStructure(aConfigs);
 					view.constructBuilding(newBuilding, currTile);
+					
+					//update the resources
+					[Inject] ResourceManager.removeConstructionResources(this._selectedBuilding.getName());
+					view.updateResourcePanel();
 					
 					//hide the unit/structure info area
 					
