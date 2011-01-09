@@ -41,12 +41,12 @@
 	
 	<!-- Resources -->
 	<configGroup id="ResourceMasterList">
-		<config sId="gold" mcID="ResourcesPanel_Resource_MC" nQuantity="2500" />
-		<config sId="wood" mcID="ResourcesPanel_Resource_MC" nQuantity="500" />
-		<config sId="stone" mcID="ResourcesPanel_Resource_MC" nQuantity="200" />
-		<config sId="metal" mcID="ResourcesPanel_Resource_MC" nQuantity="300" />
-		<config sId="food" mcID="ResourcesPanel_Resource_MC" nQuantity="500" />
-		<config sId="labor" mcID="ResourcesPanel_Resource_MC" nQuantity="10" />
+		<config sId="gold" mcID="ResourcesPanel_Resource_MC" nQuantity="25000" />
+		<config sId="wood" mcID="ResourcesPanel_Resource_MC" nQuantity="5000" />
+		<config sId="stone" mcID="ResourcesPanel_Resource_MC" nQuantity="2000" />
+		<config sId="metal" mcID="ResourcesPanel_Resource_MC" nQuantity="3000" />
+		<config sId="food" mcID="ResourcesPanel_Resource_MC" nQuantity="5000" />
+		<config sId="labor" mcID="ResourcesPanel_Resource_MC" nQuantity="100" />
 	</configGroup>
 	
 	<!-- Buildings -->

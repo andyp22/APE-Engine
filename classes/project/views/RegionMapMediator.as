@@ -156,17 +156,18 @@ package classes.project.views {
             e.updateAfterEvent();
         }
 		private function mouseConstructionClickHandler(e:MouseEvent):void {
-            trace("mouseConstructionClickHandler -- " + e);
+            //trace("mouseConstructionClickHandler()");
 			var nX:Number = e.stageX;
             var nY:Number = e.stageY;
 			
 			//get the tile at the click location
 			var currTile:ITile = view.grid.getTileByLocation((nX - view.clip.x), (nY - view.clip.y));
 			//trace("currTile.getID(): "+currTile.getID());
-			
+			//trace("targetTileValid: "+this._selectedBuilding.targetTileValid(currTile));
 			if(this._selectedBuilding.targetTileValid(currTile))  {
 				//does the player have enough resources to build the structure?
 				[Inject] var bEnoughMoney:Boolean = ResourceManager.checkConstructionResources(this._selectedBuilding.getName());
+				//trace("bEnoughMoney: "+bEnoughMoney);
 				if(bEnoughMoney)  {
 					currTile.addBuilding();
 					//remove the events

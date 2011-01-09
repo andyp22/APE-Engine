@@ -138,13 +138,26 @@ package be.dauntless.astar
 			var y:Number = position.y;
 			
 			var neighbours:Array = new Array();
-			if(this.isValidPosition(new Point(x-1, y-1))) neighbours.push(this.getTileAt(new Point(x-1, y-1)));		//NW
-			if(this.isValidPosition(new Point(x-1, y))) neighbours.push(this.getTileAt(new Point(x-1, y)));			//SW
+			if(this.isValidPosition(new Point(x, y-1))) neighbours.push(this.getTileAt(new Point(x, y-1)));				//N
+			
+			if((x%2) == 1)  {
+				if(this.isValidPosition(new Point(x+1, y))) neighbours.push(this.getTileAt(new Point(x+1, y)));			//NE
+				if(this.isValidPosition(new Point(x+1, y+1))) neighbours.push(this.getTileAt(new Point(x+1, y+1)));		//SE
+			} else  {
+				if(this.isValidPosition(new Point(x+1, y-1))) neighbours.push(this.getTileAt(new Point(x+1, y-1)));		//NE
+				if(this.isValidPosition(new Point(x+1, y))) neighbours.push(this.getTileAt(new Point(x+1, y)));			//SE
+			}
+			
+			if(this.isValidPosition(new Point(x, y+1))) neighbours.push(this.getTileAt(new Point(x, y+1)));				//S
+			
+			if((x%2) == 1)  {
+				if(this.isValidPosition(new Point(x-1, y+1))) neighbours.push(this.getTileAt(new Point(x-1, y+1)));		//SW
+				if(this.isValidPosition(new Point(x-1, y))) neighbours.push(this.getTileAt(new Point(x-1, y)));			//NW
+			} else  {
+				if(this.isValidPosition(new Point(x-1, y))) neighbours.push(this.getTileAt(new Point(x-1, y)));			//SW
+				if(this.isValidPosition(new Point(x-1, y-1))) neighbours.push(this.getTileAt(new Point(x-1, y-1)));		//NW
+			}
 			//if(this.isValidPosition(new Point(x-1, y+1))) neighbours.push(this.getTileAt(new Point(x-1, y+1)));
-			if(this.isValidPosition(new Point(x, y-1))) neighbours.push(this.getTileAt(new Point(x, y-1)));			//N
-			if(this.isValidPosition(new Point(x, y+1))) neighbours.push(this.getTileAt(new Point(x, y+1)));			//S
-			if(this.isValidPosition(new Point(x+1, y-1))) neighbours.push(this.getTileAt(new Point(x+1, y-1)));		//NE
-			if(this.isValidPosition(new Point(x+1, y))) neighbours.push(this.getTileAt(new Point(x+1, y)));			//SE
 			//if(this.isValidPosition(new Point(x+1, y+1))) neighbours.push(this.getTileAt(new Point(x+1, y+1)));
 			
 			

@@ -1086,10 +1086,10 @@
 			<col id="1" type="water" bWalkable="false" />
 			<col id="2" type="water" bWalkable="false" />
 			<col id="3" type="water" bWalkable="false" />
-			<col id="4" type="grass" />
-			<col id="5" type="grass" />
-			<col id="6" type="grass" />
-			<col id="7" type="grass" />
+			<col id="4" type="water" bWalkable="false" />
+			<col id="5" type="water" bWalkable="false" />
+			<col id="6" type="water" bWalkable="false" />
+			<col id="7" type="water" bWalkable="false" />
 			<col id="8" type="grass" />
 			<col id="9" type="grass" />
 			<col id="10" type="grass" />
@@ -1100,13 +1100,13 @@
 			<col id="15" type="grass" />
 			<col id="16" type="grass" />
 			<col id="17" type="grass" />
-			<col id="18" type="grass" />
-			<col id="19" type="grass" />
+			<col id="18" type="water" bWalkable="false" />
+			<col id="19" type="water" bWalkable="false" />
 			<col id="20" type="grass" />
 			<col id="21" type="grass" />
 			<col id="22" type="grass" />
 			<col id="23" type="grass" />
-			<col id="24" type="grass" />
+			<col id="24" type="stone" bWalkable="false" />
 			<col id="25" type="grass" />
 			<col id="26" type="grass" />
 			<col id="27" type="grass" />
