@@ -209,6 +209,10 @@ package classes.project.model.grid {
 			}
 			return null;
 		}
+		public function getTileByAtLocation(i:Number, j:Number):ITile  {
+			//trace("getTileByLocation("+xPos+", "+yPos+")");
+			return this._tiles[j][i];
+		}
 		
 		
 		public function createNoiseMap():void  {

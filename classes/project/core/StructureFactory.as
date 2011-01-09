@@ -33,8 +33,14 @@
 				case "main_town":
 					building = new MainTownStructure(Number(configs["nId"]), configs["type"], configs["sMCid"]);
 					break;
+				case "mine":
+					building = new QuarryStructure(Number(configs["nId"]), configs["type"], configs["sMCid"]);
+					break;
 				case "port":
 					building = new PortStructure(Number(configs["nId"]), configs["type"], configs["sMCid"]);
+					break;
+				case "quarry":
+					building = new QuarryStructure(Number(configs["nId"]), configs["type"], configs["sMCid"]);
 					break;
 				default:
 					building = new HexStructure(Number(configs["nId"]), configs["type"], configs["sMCid"]);

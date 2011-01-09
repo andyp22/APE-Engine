@@ -24,7 +24,7 @@ package classes.project.model.grid {
 		protected var _factionID:Number;
 		
 		protected var _currentTile:ITile = null;
-		protected var CURRENT_MAP:String = "sample_map";
+		protected var CURRENT_MAP:String = "game_map";
 		
 		/**
 		 * Constructor

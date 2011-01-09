@@ -17,6 +17,7 @@ package classes.project.model.grid  {
 		function hasBuilding():Boolean;
 		function addBuilding():void;
 		function removeBuilding():void;
+		function getType():String;
 		
 	}
 }

@@ -21,6 +21,7 @@ package classes.project.views {
 	import classes.project.views.components.parts.RegionMapGUIPanel;
 	
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
@@ -155,7 +156,7 @@ package classes.project.views {
             e.updateAfterEvent();
         }
 		private function mouseConstructionClickHandler(e:MouseEvent):void {
-            //trace("mouseConstructionClickHandler -- " + e);
+            trace("mouseConstructionClickHandler -- " + e);
 			var nX:Number = e.stageX;
             var nY:Number = e.stageY;
 			
@@ -200,6 +201,8 @@ package classes.project.views {
 					this._undoTimer.restart();
 					e.updateAfterEvent();
 				}
+			} else  {
+				view.resetFocus();
 			}
             
         }
@@ -209,7 +212,7 @@ package classes.project.views {
 			var _ESC:Number = 27;		//escape key
 			
 			
-			//trace("e.keyCode: "+e.keyCode);
+			trace("e.keyCode: "+e.keyCode);
 			switch(e.keyCode)  {
 				case _ESC:
 					view.removeEventListener(KeyboardEvent.KEY_UP, handleConstructionKeyRelease);
@@ -300,5 +303,25 @@ package classes.project.views {
 			view.updateMapPosition(xDiff, yDiff);
 		}
 		
+		/*
+		private function onDeletePlayer(e:GuiControlEvent):void  {
+			trace("ProfileMenuMediator onDeletePlayer()");
+			//show popup with confirm and cancel buttons requesting confirmation that player is sure they want to delete character
+			if(view.getActivePlayer() != null)  {
+				var popup:TwoButtonPopup = new TwoButtonPopup("delete_player_popup", LibFactory.createMovieClip("FeedbackPopup_MC"));
+				popup.init();
+				popup.setText(Labels.getLabel("deletePlayerPopupTxt"));
+				popup.setLabels(Labels.getLabel("popup_no"), Labels.getLabel("popup_yes"));
+				popup.initBlocker(view.stage.stageWidth, view.stage.stageHeight);
+				popup.positionPopup();
+				popup.show();
+				_currentPopup = popup;
+				view.addChild(popup);
+			} else  {
+				this.noPlayerSelectedPopup();
+			}
+			
+		}
+		*/
 	}
 }

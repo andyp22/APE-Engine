@@ -143,7 +143,7 @@
 		private function initGrid():void  {
 			var startX:int = 20;
 			var startY:int = 20;
-			var sMapName:String = "sample_map";
+			var sMapName:String = "game_map";
 			var sMapSize:String = "huge"; //tiny, small, standard, large, huge
 			
 			//this._hexGrid = new HexGrid(sMapName, startX, startY, sMapSize);
@@ -304,6 +304,10 @@
 		public function updateResourcePanel():void  {
 			this._resourcesPanel.update();
 		}
+		public function resetFocus():void  {
+			stage.stageFocusRect = false;
+			stage.focus = this;
+		}
 		/*
 		
 			Code Testing
@@ -347,6 +351,7 @@
 		private function onPathFound(event : AstarEvent) : void  {
 			trace("Path was found: " + event.getPath().toString());
 		}
+		
 
 		
 	}

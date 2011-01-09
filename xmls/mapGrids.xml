@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mapGrids>
-	<grid id="sample_map">
+	<grid id="game_map">
 		<row id="0">
 			<col id="0" type="water" bWalkable="false" />
 			<col id="1" type="water" bWalkable="false" />

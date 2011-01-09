@@ -131,6 +131,9 @@ package classes.project.model.grid {
 			this._type = sType;
 			this._clip.mcBg.mcTerrain.gotoAndStop(this._type);
 		}
+		public function getType():String  {
+			return this._type;
+		}
 		
 		public function handleRollOver(e:MouseEvent):void  {
 			//trace("handleRollOver() -- "+e.target);
@@ -142,7 +145,7 @@ package classes.project.model.grid {
 			this._clip.mcBg.mcHover.visible = false;
 		}
 		public function handleClick(e:MouseEvent):void  {
-			trace("handleClick() -- should get a Path");
+			//trace("handleClick() -- "+e.target);
 			trace("Position: "+this.x+" -- "+this.y+" -- "+this._id+" -- "+getWalkable());
 			
 			

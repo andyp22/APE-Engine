@@ -55,6 +55,8 @@
 	<label sId="farm_tooltip_txt" text="A farm can grow many crops useful to a colony and the empire." />
 	<label sId="plantation_tooltip_txt" text="Plantations are much larger than farms and are capable of producing many goods." />
 	
+	<label sId="mainTownPopupTxt" text="Main Town is not next to water, colony will require a port to conduct water trade." />
+	
 	<!-- Popups -->
 	<label sId="popup_add" text="ADD" />
 	<label sId="popup_cancel" text="CANCEL" />
