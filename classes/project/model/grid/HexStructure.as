@@ -34,7 +34,7 @@ package classes.project.model.grid {
 			this.mouseChildren = false;
 		}
 		public function targetTileValid(tile:ITile):Boolean  {
-			if(tile.isWalkable() && !tile.isWater())  {
+			if(tile.getWalkable() && !tile.isWater() && !tile.hasBuilding())  {
 				return true;
 			}
 			return false;

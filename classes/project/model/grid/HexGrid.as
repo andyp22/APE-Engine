@@ -16,14 +16,21 @@ package classes.project.model.grid {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
+	import flash.geom.Point;
 	
-	public class HexGrid extends Sprite implements IGrid {
+	import be.dauntless.astar.BasicTile;
+	import be.dauntless.astar.IMap;
+	import be.dauntless.astar.Map;
+	import be.dauntless.astar.IPositionTile;
+	
+	public class HexGrid extends Sprite implements IGrid  {
 		
 		private var _clip:MovieClip;
 		private var _noiseMap:Bitmap;
 		private var _id:String;
 		private var _gridData:Array;
 		private var _tiles:Array;
+		private var _astarMap:IMap;
 		
 		private var ROWS:uint;
 		private var COLS:uint;
@@ -86,13 +93,15 @@ package classes.project.model.grid {
 				this.COLS = this._gridData[0].length;
 			}
 			
+			this._astarMap = new Map(this.COLS, this.ROWS);
+			
 			for(var i:int = 0; i < this.ROWS; i++)  {
 				// the second level represents the columns 
 				// in our grid
 				this._tiles[i] = new Array();
 				for(var j:int = 0; j < this.COLS; j++)  {
 					//trace("row "+i+" col "+j+": "+nX+" -- "+nY);
-					var tile_id:String = i +"|"+j;
+					var tile_id:String = j +"|"+i;
 					[Inject] var mcTile:HexTile;
 					var bWalkable:Boolean = true;
 					
@@ -135,6 +144,9 @@ package classes.project.model.grid {
 					
 					this._clip.addChild(mcTile);
 					this._tiles[i][j] = mcTile;
+					
+					this._astarMap.setTile(new BasicTile(1, new Point(j, i), bWalkable));
+					
 					counter++;
 					// update the position vars
 					// if this is an even numbered column, 
@@ -164,12 +176,6 @@ package classes.project.model.grid {
 		public function getID():String  {
 			return this._id;
 		}
-		public function getHeight():Number  {
-			return this._clip.height;
-		}
-		public function getWidth():Number  {
-			return this._clip.width;
-		}
 		public function getMask():Sprite  {
 			return Sprite(this.mask);
 		}
@@ -178,6 +184,9 @@ package classes.project.model.grid {
 		}
 		public function yPos():Number  {
 			return this._clip.y;
+		}
+		public function getMap():IMap  {
+			return this._astarMap;
 		}
 		public function updatePosition(nX:Number, nY:Number):void  {
 			this._clip.x += nX;

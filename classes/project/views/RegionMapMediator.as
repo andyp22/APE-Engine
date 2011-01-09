@@ -16,6 +16,7 @@ package classes.project.views {
 	import classes.project.events.*;
 	import classes.project.model.PlayerResource;
 	import classes.project.model.grid.*;
+	import classes.project.model.timer.CountDownTimer;
 	import classes.project.views.components.RegionMapView;
 	import classes.project.views.components.parts.RegionMapGUIPanel;
 	
@@ -38,6 +39,9 @@ package classes.project.views {
 		private var _selectedBuilding:HexStructure;
 		private var _counter:Number = 0;
 		
+		private var _undoTimer:CountDownTimer;
+		private var _bBuildingSelected:Boolean = false;
+		
 		
 		public function RegionMapMediator()  {
 			trace("Creating RegionMapMediator...");
@@ -54,6 +58,8 @@ package classes.project.views {
 			eventMap.mapListener(eventDispatcher, ConstructionPanelEvent.MAIN_TOWN_CONSTRUCTED, onMainTownConstructed);
 			eventMap.mapListener(eventDispatcher, ConstructionPanelEvent.MAIN_TOWN_DESTROYED, onMainTownDestroyed);
 			eventMap.mapListener(eventDispatcher, ConstructionPanelEvent.SELECT_BUILDING_FOR_CONSTRUCTION, onBuildingSelected);
+			eventMap.mapListener(eventDispatcher, ConstructionPanelEvent.UNDO_LAST_BUILDING_CONSTRUCTION, onUndoLastBuildingConstructed);
+			eventMap.mapListener(eventDispatcher, CountDownTimerEvent.UNDO_COUNTDOWN_TIMER_COMPLETE, onUndoCountDownComplete);
 			eventMap.mapListener(eventDispatcher, GuiControlEvent.CONSTRUCTION_BTN_PRESSED, onConstructionBtnPressed);
 			eventMap.mapListener(eventDispatcher, PanelEvent.MINI_MAP_UPDATED, onMiniMapUpdated);
 			eventMap.mapListener(eventDispatcher, UnitFocusEvent.CENTER_FOCUSED_UNIT, onCenterFocusedUnit);
@@ -63,6 +69,8 @@ package classes.project.views {
 			
 			this.cursor = new MovieClip();
 			this._selectedBuilding = null;
+			this._undoTimer = new CountDownTimer(3, CountDownTimerEvent.UNDO_COUNTDOWN_TIMER_COMPLETE);
+			this._undoTimer.stop();
 		}
 		private function onBuildingDestroyed(e:ConstructionPanelEvent) : void  {
 			//trace("onBuildingDestroyed() " + e.building.getName() + "_" + e.building.getID());
@@ -93,6 +101,7 @@ package classes.project.views {
 			this.cursor.addEventListener(MouseEvent.CLICK, mouseConstructionClickHandler);
 			view.addEventListener(KeyboardEvent.KEY_UP, this.handleConstructionKeyRelease);
 			
+			this._bBuildingSelected = true;
 			
 			//update the unit/structure info area
 			
@@ -100,6 +109,29 @@ package classes.project.views {
 			
 			this.mouseMoveHandler(new MouseEvent(MouseEvent.MOUSE_MOVE));
 			
+		}
+		private function onUndoLastBuildingConstructed(e:ConstructionPanelEvent):void  {
+			//trace("onUndoLastBuildingConstructed()");
+			if(this._selectedBuilding != null)  {
+				//destroy the timer
+				this._undoTimer.stop();
+				//destroy the last building constructed
+				view.destroyBuilding(this._selectedBuilding.getName() + "_" + this._selectedBuilding.getID());
+				//refund the resources
+				[Inject] ResourceManager.refundConstructionResources(this._selectedBuilding.getName());
+				view.updateResourcePanel();
+				
+				this._selectedBuilding = null;
+			}
+		}
+		private function onUndoCountDownComplete(e:CountDownTimerEvent) : void  {
+			//trace("onUndoCountDownComplete()");
+			[Inject] Server.getControl("undo").disable();
+			this._undoTimer.stop();
+			
+			if(!this._bBuildingSelected)  {
+				this._selectedBuilding = null;
+			}
 		}
 		private function mouseMoveHandler(e:MouseEvent):void {
             //trace("mouseMoveHandler");
@@ -123,7 +155,7 @@ package classes.project.views {
             e.updateAfterEvent();
         }
 		private function mouseConstructionClickHandler(e:MouseEvent):void {
-            //trace("mouseConstructionClickHandler");
+            //trace("mouseConstructionClickHandler -- " + e);
 			var nX:Number = e.stageX;
             var nY:Number = e.stageY;
 			
@@ -135,6 +167,7 @@ package classes.project.views {
 				//does the player have enough resources to build the structure?
 				[Inject] var bEnoughMoney:Boolean = ResourceManager.checkConstructionResources(this._selectedBuilding.getName());
 				if(bEnoughMoney)  {
+					currTile.addBuilding();
 					//remove the events
 					view.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
 					view.removeEventListener(KeyboardEvent.KEY_UP, handleConstructionKeyRelease);
@@ -153,16 +186,19 @@ package classes.project.views {
 					
 					[Inject] var newBuilding:HexStructure = StructureFactory.makeStructure(aConfigs);
 					view.constructBuilding(newBuilding, currTile);
+					this._selectedBuilding.setID(newBuilding.getID());
 					
 					//update the resources
 					[Inject] ResourceManager.removeConstructionResources(this._selectedBuilding.getName());
 					view.updateResourcePanel();
-					
 					//hide the unit/structure info area
 					
-					
+					//enable the undo button
+					this._bBuildingSelected = false;
+					[Inject] Server.getControl("undo").enable();
+					//start undo timer and have this._selectedBuilding = null once the timer expires
+					this._undoTimer.restart();
 					e.updateAfterEvent();
-					this._selectedBuilding = null;
 				}
 			}
             

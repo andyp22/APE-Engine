@@ -5,58 +5,34 @@
  */
  package classes.project.model.timer  {
 	
-	import flash.display.MovieClip;
-	import flash.display.Sprite;
+	import classes.project.core.Server;
+	import classes.project.events.CountDownTimerEvent;
+	
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
 	
-	public class CountDownTimer extends Sprite {
+	public class CountDownTimer  {
 		
-		var _startTime:Date;
-		var _timer:Timer;
-		var _duration:uint;
-		var _timerDisplay:MovieClip;
-		var _showTenthSeconds:Boolean = true;
-		var _showSeconds:Boolean = true;
-		var _showMinutes:Boolean = true;
-		var _showHours:Boolean = false;
-		
+		protected var _startTime:Date;
+		protected var _timer:Timer;
+		protected var _duration:uint;
+		protected var _releaseEvent:String;
 		/**
 		 * Constructor
 		 */
-		public function CountDownTimer(mc:MovieClip, nDuration:uint)  {
-			trace("Creating a new CountDownTimer...");
-			super();
-			this._timerDisplay = mc;
+		public function CountDownTimer(nSeconds:uint, sCompletionEvent:String = "COUNTDOWN_TIMER_COMPLETE")  {
+			//trace("Creating a new CountDownTimer...");
 			//convert from seconds to milliseconds
-			this._duration = nDuration * 1000;
-			trace("this._duration: "+this._duration);
+			this._duration = nSeconds * 1000;
+			this._releaseEvent = sCompletionEvent;
 			this.init();
 		}
 		private function init():void  {
-			
-			addChild(this._timerDisplay);
-			
 			this._startTime = new Date();
-			
-			if(this._duration >= 360000)  {
-				_showHours = true;
-			}
-			if(this._duration < 60000)  {
-				_showMinutes = false;
-			}
-			if(this._duration < 1000)  {
-				_showSeconds = false;
-			}
-			
-			
-			//timer
 			this._timer = new Timer(50);
             this._timer.addEventListener("timer", timerHandler);
             this._timer.start();
-			
-			
 		}
 		/*
 		 *	Timer methods
@@ -68,76 +44,14 @@
 			var _currentTime:Date = new Date();
             var nDiff:Number = (_currentTime.getTime() - _startTime.getTime());
 			var timeLeft:Number = this._duration - nDiff;
-			if(timeLeft > 0)  {
-				this._timerDisplay.tf.text = this.formatTimerTime(timeLeft);
-			} else  {
-				this._timerDisplay.tf.text = "Time-up!";
+			if(timeLeft <= 0)  {
 				this.timerComplete();
 			}
 			
         }
-		private function formatTimerTime(time:Number):String  {
-			//figure out the time components
-			var tenthSeconds:Number = Math.floor(time/10);
-			if(tenthSeconds >= 10)  {
-				var multTS:Number = Math.floor(tenthSeconds/10);
-				tenthSeconds -= (multTS*10);
-			}
-			var seconds:Number = Math.floor(time/1000);
-			if(seconds >= 60)  {
-				var multS:Number = Math.floor(seconds/60);
-				seconds -= multS*60;
-			}
-			var minutes:Number = Math.floor(time/1000/60);
-			if(minutes >= 60)  {
-				var multM:Number = Math.floor(minutes/60);
-				minutes -= multM*60;
-			}
-			var hours:Number = Math.floor(time/1000/60/60);
-			if(hours >= 24)  {
-				var multH:Number = Math.floor(hours/24);
-				hours -= multH*24;
-			}
-			//build the timer string
-			var timer:String = "";
-			if(_showHours)  {
-				if(hours < 10)  {
-					timer += "0"+ hours + ":";
-				} else  {
-					timer += hours + ":";
-				}
-			}
-			if(_showHours || _showMinutes)  {
-				if(minutes < 10)  {
-					timer += "0"+ minutes + ":";
-				} else  {
-					timer += minutes + ":";
-				}
-			}
-			if(_showHours || _showMinutes || _showSeconds)  {
-				if(seconds < 10)  {
-					timer += "0"+ seconds;
-				} else  {
-					timer += seconds;
-				}
-			}
-			if(_showTenthSeconds)  {
-				timer += "." + tenthSeconds;
-			}
-			return timer;
-		}
-		
 		private function timerComplete():void  {
 			this._timer.stop();
-			
-			//TODO: add timer complete event
-		}
-		
-		public function disableTenthSeconds():void  {
-			_showTenthSeconds = false;
-		}
-		public function enableTenthSeconds():void  {
-			_showTenthSeconds = true;
+			[Inject] Server.dispatch(new CountDownTimerEvent(this._releaseEvent));
 		}
 		
 		//start the timer over
@@ -151,9 +65,8 @@
 			this._duration = nDuration * 1000;
 			this.restart();
 		}
-		
-		
-		
-		
+		public function stop():void  {
+			this._timer.stop();
+		}
 	}
 }

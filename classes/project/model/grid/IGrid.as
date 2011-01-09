@@ -11,8 +11,6 @@ package classes.project.model.grid  {
 	
 	public interface IGrid  {
 		function getID():String;
-		function getHeight():Number;
-		function getWidth():Number;
 		function xPos():Number;
 		function yPos():Number;
 		function updatePosition(nX:Number, nY:Number):void;

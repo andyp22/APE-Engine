@@ -71,6 +71,9 @@ package classes.project.model.grid {
 		public function getID():Number  {
 			return this._id;
 		}
+		public function setID(n:Number):void  {
+			this._id = n;
+		}
 		public function getName():String  {
 			return this._sName;
 		}

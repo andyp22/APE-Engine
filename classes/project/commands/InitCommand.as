@@ -44,7 +44,6 @@
 			 *
 			 */
 			[Inject] ResourceManager.getInstance();
-			[Inject] ResourceManager.parseResourceData();
 			/*
 			 *	Views
 			 *

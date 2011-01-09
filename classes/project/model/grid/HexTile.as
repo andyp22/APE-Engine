@@ -10,8 +10,13 @@ package classes.project.model.grid {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	
-	public class HexTile extends Sprite implements ITile {
+	import be.dauntless.astar.ICostTile;
+	import be.dauntless.astar.IPositionTile;
+	import be.dauntless.astar.IWalkableTile;
+	
+	public class HexTile extends Sprite implements ITile, IPositionTile, IWalkableTile, ICostTile {
 		
 		private var _clip:MovieClip;
 		private var _id:String;
@@ -22,6 +27,9 @@ package classes.project.model.grid {
 		private var _type:String;
 		
 		private var _walkable:Boolean;
+		private var _hasBuilding:Boolean;
+		private var _cost:Number;
+		private var _position:Point;
 		
 		
 		/**
@@ -31,6 +39,7 @@ package classes.project.model.grid {
 			//trace("Creating new HexTile...");
 			this._id = sId;
 			this._clip = mc;
+			this._cost = 1;
 			this.init();
 			this.setType(sType);
 		}
@@ -38,6 +47,7 @@ package classes.project.model.grid {
 			addChild(this._clip);
 			
 			this._walkable = true;
+			this._hasBuilding = false;
 			
 			//TODO: have the visiblity of this field by based on release tag
 			//var bTesting:Boolean = true;
@@ -53,11 +63,14 @@ package classes.project.model.grid {
 			
 			this._clip.mcBg.addEventListener(MouseEvent.ROLL_OVER, this.handleRollOver);
 			this._clip.mcBg.addEventListener(MouseEvent.ROLL_OUT, this.handleRollOut);
+			this._clip.mcBg.addEventListener(MouseEvent.CLICK, this.handleClick);
 		}
 		
 		public function setPos(nX:Number, nY:Number):void  {
 			this.x = this._xPos = nX;
 			this.y = this._yPos = nY;
+			
+			this._position = new Point(this.x, this.y);
 		}
 		public function atPosition(nX:Number, nY:Number):Boolean  {
 			if(this.x == nX && this.y == nY)  {
@@ -80,10 +93,10 @@ package classes.project.model.grid {
 		public function yPos():Number  {
 			return this._yPos;
 		}
-		public function setWalkable(b:Boolean):void  {
-			this._walkable = b;
+		public function setWalkable(walkable:Boolean):void  {
+			this._walkable = walkable;
 		}
-		public function isWalkable():Boolean  {
+		public function getWalkable():Boolean  {
 			return this._walkable;
 		}
 		public function isWater():Boolean  {
@@ -92,6 +105,28 @@ package classes.project.model.grid {
 			}
 			return false;
 		}
+		public function hasBuilding():Boolean  {
+			return this._hasBuilding;
+		}
+		public function addBuilding():void  {
+			this._hasBuilding = true;
+		}
+		public function removeBuilding():void  {
+			this._hasBuilding = false;
+		}
+		public function getCost():Number  {
+			return this._cost;
+		}
+		public function setCost(cost:Number):void  {
+			this._cost = cost;
+		}
+		public function getPosition() : Point  {
+			return new Point(this.x, this.y);
+		}
+		public function setPosition(p : Point):void  {
+			this.setPos(p.x, p.y);
+		}
+		
 		public function setType(sType:String):void  {
 			this._type = sType;
 			this._clip.mcBg.mcTerrain.gotoAndStop(this._type);
@@ -105,6 +140,12 @@ package classes.project.model.grid {
 		public function handleRollOut(e:MouseEvent):void  {
 			//trace("handleRollOver() -- "+e.target);
 			this._clip.mcBg.mcHover.visible = false;
+		}
+		public function handleClick(e:MouseEvent):void  {
+			trace("handleClick() -- should get a Path");
+			trace("Position: "+this.x+" -- "+this.y+" -- "+this._id+" -- "+getWalkable());
+			
+			
 		}
 		
 	}

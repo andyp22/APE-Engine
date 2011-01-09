@@ -30,6 +30,20 @@
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
+	
+	
+	import flash.geom.Point;
+	
+	import be.dauntless.astar.Astar;
+	import be.dauntless.astar.AstarEvent;
+	import be.dauntless.astar.IMap;
+	import be.dauntless.astar.PathRequest;
+	import be.dauntless.astar.analyzers.WalkableAnalyzer;
+	
+	
+	
+	
+	
 	public class RegionMapView extends BaseView  {
 		
 		private var _alert_lvl:Sprite;
@@ -54,6 +68,10 @@
 		private var _buildings:Array;
 		
 		
+		private var astar : Astar;
+		private var map : IMap;
+		
+		
 		/**
 		 * Constructor
 		 */
@@ -62,6 +80,8 @@
 			trace("Creating new RegionMapView()...");
 		}
 		public function init(nW:Number, nH:Number):void  {
+			
+			stage.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
 			
 			this._buildings = new Array();
 			
@@ -89,7 +109,9 @@
 			//unit/structure info area
 			
 			
-			stage.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
+			
+			this.aStarTest()
+			
 			
 		}
 		private function initLevels():void  {
@@ -271,7 +293,10 @@
 		}
 		public function destroyBuilding(sID:String):void  {
 			//trace("destroyBuilding: "+sID);
+			//get the tile at the click location
 			var building:HexStructure = this._buildings[sID];
+			var currTile:ITile = this._hexGrid.getTileByLocation(building.x, building.y);
+			currTile.removeBuilding();
 			building.destroy();
 			this._structures_lvl.removeChild(building);
 			this._buildings[sID] = null;
@@ -302,7 +327,27 @@
 			
 		}
 		
+		private function aStarTest() : void  {
+			
+			astar = new Astar();
+			astar.addAnalyzer(new WalkableAnalyzer());
+			
+			astar.addEventListener(AstarEvent.PATH_FOUND, onPathFound);
+			astar.addEventListener(AstarEvent.PATH_NOT_FOUND, onPathNotFound);
+			
+			astar.getPath(new PathRequest(new Point(6, 10), new Point(6, 12), this._hexGrid.getMap()));
+			
+			
+		}
 		
+		private function onPathNotFound(event : AstarEvent) : void  {
+			trace("path not found");
+		}
+ 
+		private function onPathFound(event : AstarEvent) : void  {
+			trace("Path was found: " + event.getPath().toString());
+		}
+
 		
 	}
 }

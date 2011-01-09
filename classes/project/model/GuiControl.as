@@ -108,6 +108,7 @@ package classes.project.model {
 			this.mcBg.gotoAndPlay("_up");
 		}
 		public function disable():void  {
+			//trace("disable: "+this.sName);
 			this.bEnabled = false;
 			this.removeListeners();
 			this.useHandCursor = false;

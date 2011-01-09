@@ -46,6 +46,7 @@
 	<label sId="quarry" text="Quarry" />
 	<label sId="farm" text="Farm" />
 	<label sId="plantation" text="Plantation" />
+	<label sId="undo" text="Undo Last" />
 
 	<label sId="main_town_tooltip_txt" text="This building functions as the main town for your colony." />
 	<label sId="port_tooltip_txt" text="A port provides an extra location for your ships to dock in your colony." />

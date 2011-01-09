@@ -17,6 +17,7 @@
 		private static var bInit:Boolean = true;
 		
 		private static var _resources:Array;
+		private static var _structureCosts:Array;
 		
 		
 		
@@ -40,11 +41,13 @@
 		}
 		private static function init():void  {
 			_resources = new Array();
+			_structureCosts = new Array();
 			
-			
+			parseResourceData();
+			parseStructureConstructionData();
 			
 		}
-		public static function parseResourceData():void  {
+		private static function parseResourceData():void  {
 			trace("ResourceManager parsing Resources...");
 			[Inject] var configs:Array = Configs.getConfigGroup("ResourceMasterList");
 			
@@ -66,6 +69,29 @@
 				_resources[sLabel] = resource;
 				trace(sOutput);
 			}
+		}
+		public static function parseStructureConstructionData():void  {
+			trace("ResourceManager parsing StructureConstructionData...");
+			[Inject] var configs:Array = Configs.getConfigGroup("StructureMasterList");
+			
+			for(var elm in configs)  {
+				var aConfigs:Array = configs[elm];
+				var aCosts:Array = new Array();
+				
+				for(var res in aConfigs)  {
+					if(String(res).indexOf("n") > -1 && String(res).indexOf("n") < 1)  {
+						var sRes:String = String(res).substr(1).toLowerCase();
+						var nQty:Number = Number(aConfigs[res]);
+						
+						aCosts[sRes] = nQty;
+						
+						
+					}
+				}
+				_structureCosts[aConfigs["sId"]] = aCosts;
+			}
+			
+			
 		}
 		/*
 		 *  
@@ -90,51 +116,29 @@
 		 *
 		 */
 		public static function checkConstructionResources(sName:String):Boolean  {
-			[Inject] var configs:Array = Configs.getConfigGroup("StructureMasterList");
 			var bReturn:Boolean = true;
-			
-			for(var elm in configs)  {
-				var aConfigs:Array = configs[elm];
-				//get the building
-				if(aConfigs["sId"] == sName)  {
-					//check the resources
-					for(var res in aConfigs)  {
-						if(String(res).indexOf("n") > -1 && String(res).indexOf("n") < 1)  {
-							var sRes:String = String(res).substr(1).toLowerCase();
-							var nQty:Number = Number(aConfigs[res]);
-							
-							var nResQty:Number = (hasResource(sRes)) ? getResource(sRes).getQty() : 0;
-							if(nResQty < nQty)  {
-								bReturn = false;
-							}
-						}
-					}
+			var aCosts:Array = _structureCosts[sName];
+			for(var elm in aCosts)  {
+				var nResQty:Number = (hasResource(elm)) ? getResource(elm).getQty() : 0;
+				if(nResQty < Number(aCosts[elm]))  {
+					bReturn = false;
 				}
 			}
-			
 			return bReturn;
 		}
-		public static function removeConstructionResources(sName:String):Boolean  {
-			[Inject] var configs:Array = Configs.getConfigGroup("StructureMasterList");
-			var bReturn:Boolean = true;
-			
-			for(var elm in configs)  {
-				var aConfigs:Array = configs[elm];
-				//get the building
-				if(aConfigs["sId"] == sName)  {
-					//check the resources
-					for(var res in aConfigs)  {
-						if(String(res).indexOf("n") > -1 && String(res).indexOf("n") < 1)  {
-							var sRes:String = String(res).substr(1).toLowerCase();
-							var nQty:Number = Number(aConfigs[res]);
-							
-							getResource(sRes).update((-1 * nQty));
-						}
-					}
-				}
+		public static function removeConstructionResources(sName:String):void  {
+			var aCosts:Array = _structureCosts[sName];
+			for(var elm in aCosts)  {
+				getResource(elm).update((-1 * Number(aCosts[elm])));
 			}
 			
-			return bReturn;
+		}
+		public static function refundConstructionResources(sName:String):void  {
+			trace("refundConstructionResources: "+sName);
+			var aCosts:Array = _structureCosts[sName];
+			for(var elm in aCosts)  {
+				getResource(elm).update(Number(aCosts[elm]));
+			}
 		}
 		
 		

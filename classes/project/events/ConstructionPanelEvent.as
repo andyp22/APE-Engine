@@ -17,6 +17,7 @@ package classes.project.events  {
 		public static const MAIN_TOWN_CONSTRUCTED:String = "MAIN_TOWN_CONSTRUCTED";
 		public static const MAIN_TOWN_DESTROYED:String = "MAIN_TOWN_DESTROYED";
 		public static const SELECT_BUILDING_FOR_CONSTRUCTION:String = "SELECT_BUILDING_FOR_CONSTRUCTION";
+		public static const UNDO_LAST_BUILDING_CONSTRUCTION:String = "UNDO_LAST_BUILDING_CONSTRUCTION";
 		
 		
 		public function ConstructionPanelEvent(sType:String, building:HexStructure = null)  {

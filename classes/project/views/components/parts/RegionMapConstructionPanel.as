@@ -15,6 +15,7 @@ package classes.project.views.components.parts  {
 	import classes.project.model.ContainerPanel;
 	import classes.project.model.GuiControl;
 	import classes.project.model.controls.ConstructionPanelControl;
+	import classes.project.model.controls.ConstructionPanelUndoControl;
 	import classes.project.model.controls.GameMenuControl;
 	import classes.project.model.grid.HexStructure;
 	import classes.project.views.components.parts.MiniMap;
@@ -81,6 +82,12 @@ package classes.project.views.components.parts  {
 				}
 				
 			}
+			
+			[Inject] var undoBtn:ConstructionPanelUndoControl = new ConstructionPanelUndoControl("undo", LibFactory.createMovieClip("ConstructionPanel_Btn_MC"), false);
+			[Inject] Server.addControl(undoBtn, "undo");
+			[Inject] Server.getControl("undo").disable();
+			aOrder.push(undoBtn);
+			
 			
 			//display in the correct order
 			var nX:int = 0;

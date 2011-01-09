@@ -151,7 +151,7 @@ package classes.project.model.grid {
 		public function checkMove(nX:Number, nY:Number):Boolean  {
 			[Inject] var grid:IGrid = MapManager.getGrid(CURRENT_MAP);
 			if(grid.getTileByLocation(nX, nY) != null)  {
-				if(grid.getTileByLocation(nX, nY).isWalkable())  {
+				if(grid.getTileByLocation(nX, nY).getWalkable())  {
 					return true;
 				}
 			}

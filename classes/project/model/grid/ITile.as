@@ -12,8 +12,11 @@ package classes.project.model.grid  {
 		function getWidth():Number;
 		function xPos():Number;
 		function yPos():Number;
-		function isWalkable():Boolean;
 		function isWater():Boolean;
+		function getWalkable():Boolean;
+		function hasBuilding():Boolean;
+		function addBuilding():void;
+		function removeBuilding():void;
 		
 	}
 }
