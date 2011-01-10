@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<col id="0" type="water" bWalkable="false" />
+
+<col id="4" type="dirt" />
+<col id="5" type="grass" />
+<col id="6" type="hills" />
+<col id="7" type="stone" bWalkable="false" />
+<col id="10" type="tops" bWalkable="false" />
+

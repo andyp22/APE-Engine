@@ -117,14 +117,15 @@ package classes.project.model.grid {
 						if(tileHeight >= 33000 && tileHeight < 38000)  {
 							sType = "dirt";
 						}
-						if(tileHeight >= 38000 && tileHeight < 46000)  {
+						if(tileHeight >= 38000 && tileHeight < 44000)  {
 							sType = "grass";
 						}
-						if(tileHeight >= 46000 && tileHeight < 50500)  {
+						if(tileHeight >= 44000 && tileHeight < 50500)  {
 							sType = "hills";
 						}
 						if(tileHeight >= 50500 && tileHeight < 51500)  {
 							sType = "stone";
+							bWalkable = false;
 						}
 						if(tileHeight >= 51500)  {
 							sType = "tops";

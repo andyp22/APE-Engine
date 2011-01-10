@@ -325,7 +325,7 @@
 			this._units_lvl.addChild(test2);
 			
 			var test3:HexWaterUnit = new HexWaterUnit(i++, "test_piece_03", LibFactory.createMovieClip("Sample_single_water_unit_MC"));
-			test3.setPosition(110, 120);
+			test3.setPosition(2030, 1200);
 			this._units_lvl.addChild(test3);
 			
 			
@@ -339,7 +339,7 @@
 			astar.addEventListener(AstarEvent.PATH_FOUND, onPathFound);
 			astar.addEventListener(AstarEvent.PATH_NOT_FOUND, onPathNotFound);
 			
-			astar.getPath(new PathRequest(new Point(6, 10), new Point(6, 12), this._hexGrid.getMap()));
+			//astar.getPath(new PathRequest(new Point(6, 10), new Point(6, 12), this._hexGrid.getMap()));
 			
 			
 		}

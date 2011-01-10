@@ -37,13 +37,19 @@ package classes.project.model.structures {
 			var nIndex:Number = tile.getID().indexOf("|");
 			var nX:Number = Number(tile.getID().substr(0,nIndex));
 			var nY:Number = Number(tile.getID().substr((nIndex+1)));
-			var grid:HexGrid = HexGrid(MapManager.getGrid("game_map"));
-			[Inject] var neighbors:Array =  grid.getMap().getNeighbours(new Point(nX, nY));
 			var bNextToStone:Boolean = false;
+			var grid:HexGrid = HexGrid(MapManager.getGrid("game_map"));
+			//can be located on hills
+			if((tile.getType().indexOf("hills") > -1))  {
+				bNextToStone = true;
+			}
+			
+			[Inject] var neighbors:Array =  grid.getMap().getNeighbours(new Point(nX, nY));
+			//or next to stone outcroppings or mountaintops
 			for(var i:Number = 0; i < neighbors.length; i++)  {
 				nX = neighbors[i].getPosition().x;
 				nY = neighbors[i].getPosition().y;
-				if(grid.getTileByAtLocation(nX, nY).getType().indexOf("stone") > -1)  {
+				if((grid.getTileByAtLocation(nX, nY).getType().indexOf("stone") > -1) || (grid.getTileByAtLocation(nX, nY).getType().indexOf("tops") > -1))  {
 					bNextToStone = true;
 				}
 			}

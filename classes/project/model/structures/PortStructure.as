@@ -40,14 +40,18 @@ package classes.project.model.structures {
 			var grid:HexGrid = HexGrid(MapManager.getGrid("game_map"));
 			[Inject] var neighbors:Array =  grid.getMap().getNeighbours(new Point(nX, nY));
 			var bNextToWater:Boolean = false;
+			var bNextToLand:Boolean = false;
 			for(var i:Number = 0; i < neighbors.length; i++)  {
 				nX = neighbors[i].getPosition().x;
 				nY = neighbors[i].getPosition().y;
 				if(grid.getTileByAtLocation(nX, nY).isWater())  {
 					bNextToWater = true;
+				} else if(grid.getTileByAtLocation(nX, nY).getWalkable())  {
+					bNextToLand = true;
 				}
 			}
-			if(tile.getWalkable() && !tile.isWater() && !tile.hasBuilding() && bNextToWater)  {
+			//must be next to land and water or port is useless
+			if(tile.getWalkable() && !tile.isWater() && !tile.hasBuilding() && bNextToWater && bNextToLand)  {
 				return true;
 			}
 			return false;
